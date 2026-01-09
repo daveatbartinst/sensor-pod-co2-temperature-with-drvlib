@@ -9,7 +9,7 @@
  */
 
 #include "init_var.h"
-//#include "driverlib.h"
+#include "driverlib.h"
 #include <stdint.h>
 
 uint8_t data_ready_timing_byte = 0;

@@ -41,7 +41,7 @@
 #if defined (__MSP430FR6989__)
         #include <msp430fr6989.h>
 #else
-        #include <msp430.h>
+    //    #include <msp430.h>
 #endif
 
 #if defined(__IAR_SYSTEMS_ICC__)

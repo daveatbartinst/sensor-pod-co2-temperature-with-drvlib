@@ -9,7 +9,7 @@
 #define MAIN_CONFIG_H_
 
 //MSP libs
-#include <msp430.h>
+//#include <msp430.h>
 #include <stdint.h>
 //#include "driverlib.h"
 //#include "error_codes.h"

@@ -7,9 +7,10 @@
  *
  *
  */
+//#include "msp430.h"
 #include "I2C.h"
 #include "init_var.h"
-//#include "driverlib.h"
+#include "driverlib.h"
 #include <stdint.h>
 // Sensirion Constants:
 static const uint8_t Sensirion_crc_polynomial = crc_polynomial; // 0x31 (x^8 + x^5 + x^4 + 1).

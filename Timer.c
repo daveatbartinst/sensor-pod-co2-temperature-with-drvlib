@@ -10,7 +10,7 @@
 
 #include "Timer.h"
 #include "init_var.h"
-//#include "driverlib.h"
+#include "driverlib.h"
 #include "I2C.h"
 #include "uart.h"
 #include <stdint.h>

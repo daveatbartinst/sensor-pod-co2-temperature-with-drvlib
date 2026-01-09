@@ -18,7 +18,7 @@
 
 //#include "hw_config.h"
 #include <math.h>
-#include "msp430.h"
+
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>

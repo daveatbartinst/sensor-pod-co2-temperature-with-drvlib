@@ -8,8 +8,8 @@
 #include "hw_config.h"
 #include "main.h"
 //MSP libs
-#include <msp430.h>
-//#include <driverlib.h>
+//#include <msp430.h>
+#include <driverlib.h>
 #include <stdint.h>
 //project libs
 //#include "bi_lcd_spi_par.h"

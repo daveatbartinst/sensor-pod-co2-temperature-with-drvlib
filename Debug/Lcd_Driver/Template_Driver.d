@@ -1,12 +1,6 @@
 # FIXED
 
 Lcd_Driver/Template_Driver.obj: ../Lcd_Driver/Template_Driver.c
-Lcd_Driver/Template_Driver.obj: C:/ti/ccs1250/ccs/ccs_base/msp430/include/msp430.h
-Lcd_Driver/Template_Driver.obj: C:/ti/ccs1250/ccs/ccs_base/msp430/include/msp430fr5964.h
-Lcd_Driver/Template_Driver.obj: C:/ti/ccs1250/ccs/ccs_base/msp430/include/in430.h
-Lcd_Driver/Template_Driver.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/intrinsics.h
-Lcd_Driver/Template_Driver.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/intrinsics_legacy_undefs.h
-Lcd_Driver/Template_Driver.obj: C:/ti/ccs1250/ccs/ccs_base/msp430/include/legacy.h
 Lcd_Driver/Template_Driver.obj: C:/Users/Dave/workspace_v12/sensor-pod-co2-temperature-with-drvlib/GrLib/grlib/grlib.h
 Lcd_Driver/Template_Driver.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdint.h
 Lcd_Driver/Template_Driver.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/_ti_config.h
@@ -24,18 +18,6 @@ Lcd_Driver/Template_Driver.obj: ../Lcd_Driver/Template_Driver.h
 Lcd_Driver/Template_Driver.obj: C:/Users/Dave/workspace_v12/sensor-pod-co2-temperature-with-drvlib/GrLib/grlib/grlib.h
 
 ../Lcd_Driver/Template_Driver.c:
-
-C:/ti/ccs1250/ccs/ccs_base/msp430/include/msp430.h:
-
-C:/ti/ccs1250/ccs/ccs_base/msp430/include/msp430fr5964.h:
-
-C:/ti/ccs1250/ccs/ccs_base/msp430/include/in430.h:
-
-C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/intrinsics.h:
-
-C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/intrinsics_legacy_undefs.h:
-
-C:/ti/ccs1250/ccs/ccs_base/msp430/include/legacy.h:
 
 C:/Users/Dave/workspace_v12/sensor-pod-co2-temperature-with-drvlib/GrLib/grlib/grlib.h:
 

@@ -12,7 +12,7 @@
 #include "stdlib.h"
 #include "stdint.h"
 #include "string.h"
-//#include "driverlib.h"
+#include "driverlib.h"
 #include <stdint.h>
 // +-------------------------+
 // | Global variable        |

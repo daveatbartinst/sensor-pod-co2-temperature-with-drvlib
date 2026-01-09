@@ -6,11 +6,13 @@ SHELL = cmd.exe
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../driverlib/MSP430FR5xx_6xx/adc12_b.c \
 ../driverlib/MSP430FR5xx_6xx/aes256.c \
 ../driverlib/MSP430FR5xx_6xx/comp_e.c \
 ../driverlib/MSP430FR5xx_6xx/crc.c \
 ../driverlib/MSP430FR5xx_6xx/crc32.c \
 ../driverlib/MSP430FR5xx_6xx/cs.c \
+../driverlib/MSP430FR5xx_6xx/dma.c \
 ../driverlib/MSP430FR5xx_6xx/esi.c \
 ../driverlib/MSP430FR5xx_6xx/eusci_a_spi.c \
 ../driverlib/MSP430FR5xx_6xx/eusci_a_uart.c \
@@ -34,11 +36,13 @@ C_SRCS += \
 ../driverlib/MSP430FR5xx_6xx/wdt_a.c 
 
 C_DEPS += \
+./driverlib/MSP430FR5xx_6xx/adc12_b.d \
 ./driverlib/MSP430FR5xx_6xx/aes256.d \
 ./driverlib/MSP430FR5xx_6xx/comp_e.d \
 ./driverlib/MSP430FR5xx_6xx/crc.d \
 ./driverlib/MSP430FR5xx_6xx/crc32.d \
 ./driverlib/MSP430FR5xx_6xx/cs.d \
+./driverlib/MSP430FR5xx_6xx/dma.d \
 ./driverlib/MSP430FR5xx_6xx/esi.d \
 ./driverlib/MSP430FR5xx_6xx/eusci_a_spi.d \
 ./driverlib/MSP430FR5xx_6xx/eusci_a_uart.d \
@@ -62,11 +66,13 @@ C_DEPS += \
 ./driverlib/MSP430FR5xx_6xx/wdt_a.d 
 
 OBJS += \
+./driverlib/MSP430FR5xx_6xx/adc12_b.obj \
 ./driverlib/MSP430FR5xx_6xx/aes256.obj \
 ./driverlib/MSP430FR5xx_6xx/comp_e.obj \
 ./driverlib/MSP430FR5xx_6xx/crc.obj \
 ./driverlib/MSP430FR5xx_6xx/crc32.obj \
 ./driverlib/MSP430FR5xx_6xx/cs.obj \
+./driverlib/MSP430FR5xx_6xx/dma.obj \
 ./driverlib/MSP430FR5xx_6xx/esi.obj \
 ./driverlib/MSP430FR5xx_6xx/eusci_a_spi.obj \
 ./driverlib/MSP430FR5xx_6xx/eusci_a_uart.obj \
@@ -90,11 +96,13 @@ OBJS += \
 ./driverlib/MSP430FR5xx_6xx/wdt_a.obj 
 
 OBJS__QUOTED += \
+"driverlib\MSP430FR5xx_6xx\adc12_b.obj" \
 "driverlib\MSP430FR5xx_6xx\aes256.obj" \
 "driverlib\MSP430FR5xx_6xx\comp_e.obj" \
 "driverlib\MSP430FR5xx_6xx\crc.obj" \
 "driverlib\MSP430FR5xx_6xx\crc32.obj" \
 "driverlib\MSP430FR5xx_6xx\cs.obj" \
+"driverlib\MSP430FR5xx_6xx\dma.obj" \
 "driverlib\MSP430FR5xx_6xx\esi.obj" \
 "driverlib\MSP430FR5xx_6xx\eusci_a_spi.obj" \
 "driverlib\MSP430FR5xx_6xx\eusci_a_uart.obj" \
@@ -118,11 +126,13 @@ OBJS__QUOTED += \
 "driverlib\MSP430FR5xx_6xx\wdt_a.obj" 
 
 C_DEPS__QUOTED += \
+"driverlib\MSP430FR5xx_6xx\adc12_b.d" \
 "driverlib\MSP430FR5xx_6xx\aes256.d" \
 "driverlib\MSP430FR5xx_6xx\comp_e.d" \
 "driverlib\MSP430FR5xx_6xx\crc.d" \
 "driverlib\MSP430FR5xx_6xx\crc32.d" \
 "driverlib\MSP430FR5xx_6xx\cs.d" \
+"driverlib\MSP430FR5xx_6xx\dma.d" \
 "driverlib\MSP430FR5xx_6xx\esi.d" \
 "driverlib\MSP430FR5xx_6xx\eusci_a_spi.d" \
 "driverlib\MSP430FR5xx_6xx\eusci_a_uart.d" \
@@ -146,11 +156,13 @@ C_DEPS__QUOTED += \
 "driverlib\MSP430FR5xx_6xx\wdt_a.d" 
 
 C_SRCS__QUOTED += \
+"../driverlib/MSP430FR5xx_6xx/adc12_b.c" \
 "../driverlib/MSP430FR5xx_6xx/aes256.c" \
 "../driverlib/MSP430FR5xx_6xx/comp_e.c" \
 "../driverlib/MSP430FR5xx_6xx/crc.c" \
 "../driverlib/MSP430FR5xx_6xx/crc32.c" \
 "../driverlib/MSP430FR5xx_6xx/cs.c" \
+"../driverlib/MSP430FR5xx_6xx/dma.c" \
 "../driverlib/MSP430FR5xx_6xx/esi.c" \
 "../driverlib/MSP430FR5xx_6xx/eusci_a_spi.c" \
 "../driverlib/MSP430FR5xx_6xx/eusci_a_uart.c" \

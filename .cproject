@@ -46,9 +46,10 @@
 								<option id="com.ti.ccstudio.buildDefinitions.MSP430_21.6.compilerID.PRINTF_SUPPORT.2047794801" name="Level of printf/scanf support required (--printf_support)" superClass="com.ti.ccstudio.buildDefinitions.MSP430_21.6.compilerID.PRINTF_SUPPORT" value="com.ti.ccstudio.buildDefinitions.MSP430_21.6.compilerID.PRINTF_SUPPORT.minimal" valueType="enumerated"/>
 								<option id="com.ti.ccstudio.buildDefinitions.MSP430_21.6.compilerID.OPT_LEVEL.239402763" name="Optimization level (--opt_level, -O)" superClass="com.ti.ccstudio.buildDefinitions.MSP430_21.6.compilerID.OPT_LEVEL" value="com.ti.ccstudio.buildDefinitions.MSP430_21.6.compilerID.OPT_LEVEL.3" valueType="enumerated"/>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.ti.ccstudio.buildDefinitions.MSP430_21.6.compilerID.INCLUDE_PATH.1190762371" name="Add dir to #include search path (--include_path, -I)" superClass="com.ti.ccstudio.buildDefinitions.MSP430_21.6.compilerID.INCLUDE_PATH" valueType="includePath">
-									<listOptionValue builtIn="false" value="${CCS_BASE_ROOT}/msp430/include"/>
 									<listOptionValue builtIn="false" value="${PROJECT_ROOT}"/>
-									<listOptionValue builtIn="false" value=""/>
+									<listOptionValue builtIn="false" value="${workspace_loc:/${ProjName}/driverlib/MSP430FR5xx_6xx}"/>
+									<listOptionValue builtIn="false" value="${workspace_loc:/${ProjName}/driverlib/MSP430FR5xx_6xx/deprecated}"/>
+									<listOptionValue builtIn="false" value="${workspace_loc:/${ProjName}/driverlib}"/>
 									<listOptionValue builtIn="false" value="${PROJECT_ROOT}/GrLib/grlib"/>
 									<listOptionValue builtIn="false" value="${PROJECT_ROOT}/GrLib/fonts"/>
 									<listOptionValue builtIn="false" value="${CG_TOOL_ROOT}/include"/>
@@ -103,8 +104,32 @@
 							</tool>
 						</toolChain>
 					</folderInfo>
+					<folderInfo id="com.ti.ccstudio.buildDefinitions.MSP430.Debug.1417231860.1711769207" name="/" resourcePath="driverlib/MSP430FR5xx_6xx">
+						<toolChain id="com.ti.ccstudio.buildDefinitions.MSP430_21.6.exe.DebugToolchain.2129781599" name="TI Build Tools" superClass="com.ti.ccstudio.buildDefinitions.MSP430_21.6.exe.DebugToolchain" unusedChildren="">
+							<option id="com.ti.ccstudio.buildDefinitions.core.OPT_TAGS.1487782455.158450018" superClass="com.ti.ccstudio.buildDefinitions.core.OPT_TAGS.1487782455"/>
+							<option id="com.ti.ccstudio.buildDefinitions.core.OPT_CODEGEN_VERSION.1479234306.1433877596" name="Compiler version" superClass="com.ti.ccstudio.buildDefinitions.core.OPT_CODEGEN_VERSION.1479234306"/>
+							<targetPlatform id="com.ti.ccstudio.buildDefinitions.MSP430_21.6.exe.targetPlatformDebug" name="Platform" superClass="com.ti.ccstudio.buildDefinitions.MSP430_21.6.exe.targetPlatformDebug"/>
+							<tool id="com.ti.ccstudio.buildDefinitions.MSP430_21.6.exe.compilerDebug.1853923890" name="MSP430 Compiler" superClass="com.ti.ccstudio.buildDefinitions.MSP430_21.6.exe.compilerDebug.1688429177">
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.ti.ccstudio.buildDefinitions.MSP430_21.6.compilerID.INCLUDE_PATH.487412959" name="Add dir to #include search path (--include_path, -I)" superClass="com.ti.ccstudio.buildDefinitions.MSP430_21.6.compilerID.INCLUDE_PATH" valueType="includePath">
+									<listOptionValue builtIn="false" value="C:/Users/Dave/workspace_v12/sensor-pod-co2-temperature-with-drvlib"/>
+									<listOptionValue builtIn="false" value="C:/Users/Dave/workspace_v12/sensor-pod-co2-temperature-with-drvlib/driverlib"/>
+									<listOptionValue builtIn="false" value="C:/Users/Dave/workspace_v12/sensor-pod-co2-temperature-with-drvlib/driverlib/MSP430FR5xx_6xx"/>
+									<listOptionValue builtIn="false" value="C:/Users/Dave/workspace_v12/sensor-pod-co2-temperature-with-drvlib/driverlib/MSP430FR5xx_6xx/deprecated"/>
+									<listOptionValue builtIn="false" value="C:/Users/Dave/workspace_v12/sensor-pod-co2-temperature-with-drvlib/GrLib/grlib"/>
+									<listOptionValue builtIn="false" value="C:/Users/Dave/workspace_v12/sensor-pod-co2-temperature-with-drvlib/GrLib/fonts"/>
+									<listOptionValue builtIn="false" value="C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include"/>
+								</option>
+								<inputType id="com.ti.ccstudio.buildDefinitions.MSP430_21.6.compiler.inputType__C_SRCS.1445820398" name="C Sources" superClass="com.ti.ccstudio.buildDefinitions.MSP430_21.6.compiler.inputType__C_SRCS"/>
+								<inputType id="com.ti.ccstudio.buildDefinitions.MSP430_21.6.compiler.inputType__CPP_SRCS.412025249" name="C++ Sources" superClass="com.ti.ccstudio.buildDefinitions.MSP430_21.6.compiler.inputType__CPP_SRCS"/>
+								<inputType id="com.ti.ccstudio.buildDefinitions.MSP430_21.6.compiler.inputType__ASM_SRCS.755778762" name="Assembly Sources" superClass="com.ti.ccstudio.buildDefinitions.MSP430_21.6.compiler.inputType__ASM_SRCS"/>
+								<inputType id="com.ti.ccstudio.buildDefinitions.MSP430_21.6.compiler.inputType__ASM2_SRCS.1018773435" name="Assembly Sources" superClass="com.ti.ccstudio.buildDefinitions.MSP430_21.6.compiler.inputType__ASM2_SRCS"/>
+							</tool>
+							<tool id="com.ti.ccstudio.buildDefinitions.MSP430_21.6.exe.linkerDebug.1316554328" name="MSP430 Linker" superClass="com.ti.ccstudio.buildDefinitions.MSP430_21.6.exe.linkerDebug.704286205"/>
+							<tool id="com.ti.ccstudio.buildDefinitions.MSP430_21.6.hex.722766022" name="MSP430 Hex Utility" superClass="com.ti.ccstudio.buildDefinitions.MSP430_21.6.hex.881277203"/>
+						</toolChain>
+					</folderInfo>
 					<sourceEntries>
-						<entry excluding="driverlib/MSP430FR5xx_6xx/deprecated|driverlib/MSP430FR5xx_6xx/adc12_b.c|driverlib/MSP430FR5xx_6xx/dma.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>

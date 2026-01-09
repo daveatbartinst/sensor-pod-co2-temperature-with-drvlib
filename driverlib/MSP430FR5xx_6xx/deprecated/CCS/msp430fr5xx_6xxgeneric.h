@@ -122,7 +122,7 @@ typedef void (* __SFR_FARPTR)();
 #define BITD                   (0x2000)
 #define BITE                   (0x4000)
 #define BITF                   (0x8000)
-
+#define CAP                    (0x0100)       /* Capture mode: 1 /Compare mode :
 /************************************************************
 * STATUS REGISTER BITS
 ************************************************************/
@@ -154,7 +154,7 @@ typedef void (* __SFR_FARPTR)();
 #define LPM3_bits              (SCG1+SCG0+CPUOFF)
 #define LPM4_bits              (SCG1+SCG0+OSCOFF+CPUOFF)
 
-#include "in430.h"
+//#include "in430.h"
 #include <intrinsics.h>
 
 #if __MSP430_HEADER_VERSION__ < 1107

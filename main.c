@@ -19,11 +19,11 @@
 #include <stdint.h>
 #include "main.h"
 #include "init_var.h"
-#include <msp430.h>
+//#include <msp430.h>
 #include "grlib.h"
 #include "LCD_driver/Template_Driver.h"
 #include "images/images.h"
-//#include "driverlib.h"
+#include "driverlib.h"
 #include "uart.h"
 #include "I2C.h"
 #include "timer.h"

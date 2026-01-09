@@ -14,13 +14,9 @@ driverlib/MSP430FR5xx_6xx/rtc_b.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp
 driverlib/MSP430FR5xx_6xx/rtc_b.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/sys/_stdint.h
 driverlib/MSP430FR5xx_6xx/rtc_b.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdbool.h
 driverlib/MSP430FR5xx_6xx/rtc_b.obj: ../driverlib/MSP430FR5xx_6xx/inc/hw_memmap.h
-driverlib/MSP430FR5xx_6xx/rtc_b.obj: C:/ti/ccs1250/ccs/ccs_base/msp430/include/msp430.h
-driverlib/MSP430FR5xx_6xx/rtc_b.obj: C:/ti/ccs1250/ccs/ccs_base/msp430/include/msp430fr5964.h
-driverlib/MSP430FR5xx_6xx/rtc_b.obj: C:/ti/ccs1250/ccs/ccs_base/msp430/include/in430.h
+driverlib/MSP430FR5xx_6xx/rtc_b.obj: ../driverlib/MSP430FR5xx_6xx/deprecated/CCS/msp430fr5xx_6xxgeneric.h
 driverlib/MSP430FR5xx_6xx/rtc_b.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/intrinsics.h
 driverlib/MSP430FR5xx_6xx/rtc_b.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/intrinsics_legacy_undefs.h
-driverlib/MSP430FR5xx_6xx/rtc_b.obj: C:/ti/ccs1250/ccs/ccs_base/msp430/include/legacy.h
-driverlib/MSP430FR5xx_6xx/rtc_b.obj: ../driverlib/MSP430FR5xx_6xx/deprecated/CCS/msp430fr5xx_6xxgeneric.h
 
 ../driverlib/MSP430FR5xx_6xx/rtc_b.c:
 
@@ -50,17 +46,9 @@ C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdbool.h:
 
 ../driverlib/MSP430FR5xx_6xx/inc/hw_memmap.h:
 
-C:/ti/ccs1250/ccs/ccs_base/msp430/include/msp430.h:
-
-C:/ti/ccs1250/ccs/ccs_base/msp430/include/msp430fr5964.h:
-
-C:/ti/ccs1250/ccs/ccs_base/msp430/include/in430.h:
+../driverlib/MSP430FR5xx_6xx/deprecated/CCS/msp430fr5xx_6xxgeneric.h:
 
 C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/intrinsics.h:
 
 C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/intrinsics_legacy_undefs.h:
-
-C:/ti/ccs1250/ccs/ccs_base/msp430/include/legacy.h:
-
-../driverlib/MSP430FR5xx_6xx/deprecated/CCS/msp430fr5xx_6xxgeneric.h:
 
