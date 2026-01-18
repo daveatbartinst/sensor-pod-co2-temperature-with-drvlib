@@ -2,12 +2,6 @@
 
 UART.obj: ../UART.c
 UART.obj: ../UART.h
-UART.obj: C:/ti/ccs1250/ccs/ccs_base/msp430/include/msp430.h
-UART.obj: C:/ti/ccs1250/ccs/ccs_base/msp430/include/msp430fr5964.h
-UART.obj: C:/ti/ccs1250/ccs/ccs_base/msp430/include/in430.h
-UART.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/intrinsics.h
-UART.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/intrinsics_legacy_undefs.h
-UART.obj: C:/ti/ccs1250/ccs/ccs_base/msp430/include/legacy.h
 UART.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdbool.h
 UART.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/_ti_config.h
 UART.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/linkage.h
@@ -19,6 +13,12 @@ UART.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/sys/
 UART.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/machine/_types.h
 UART.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/machine/_stdint.h
 UART.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/sys/_stdint.h
+UART.obj: C:/ti/ccs1250/ccs/ccs_base/msp430/include/msp430.h
+UART.obj: C:/ti/ccs1250/ccs/ccs_base/msp430/include/msp430fr5964.h
+UART.obj: C:/ti/ccs1250/ccs/ccs_base/msp430/include/in430.h
+UART.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/intrinsics.h
+UART.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/intrinsics_legacy_undefs.h
+UART.obj: C:/ti/ccs1250/ccs/ccs_base/msp430/include/legacy.h
 UART.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdio.h
 UART.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdarg.h
 UART.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdlib.h
@@ -29,18 +29,6 @@ UART.obj: ../init_var.h
 ../UART.c:
 
 ../UART.h:
-
-C:/ti/ccs1250/ccs/ccs_base/msp430/include/msp430.h:
-
-C:/ti/ccs1250/ccs/ccs_base/msp430/include/msp430fr5964.h:
-
-C:/ti/ccs1250/ccs/ccs_base/msp430/include/in430.h:
-
-C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/intrinsics.h:
-
-C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/intrinsics_legacy_undefs.h:
-
-C:/ti/ccs1250/ccs/ccs_base/msp430/include/legacy.h:
 
 C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdbool.h:
 
@@ -63,6 +51,18 @@ C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/machine/_types
 C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/machine/_stdint.h:
 
 C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/sys/_stdint.h:
+
+C:/ti/ccs1250/ccs/ccs_base/msp430/include/msp430.h:
+
+C:/ti/ccs1250/ccs/ccs_base/msp430/include/msp430fr5964.h:
+
+C:/ti/ccs1250/ccs/ccs_base/msp430/include/in430.h:
+
+C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/intrinsics.h:
+
+C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/intrinsics_legacy_undefs.h:
+
+C:/ti/ccs1250/ccs/ccs_base/msp430/include/legacy.h:
 
 C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdio.h:
 

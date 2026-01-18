@@ -53,7 +53,7 @@
 // The compressed data for the 20 point Cmss italic font.
 //
 //*****************************************************************************
-static const uint8_t g_pucCmss20iData[2271] =
+ const uint8_t g_pucCmss20iData[2271] =
 {
       5,   9,   0,  23,  80,  19,   7, 162,  82,  81,  97,  82,
      82,  81,  97,  82,  82,  81, 240,  66,  82, 240, 240, 160,

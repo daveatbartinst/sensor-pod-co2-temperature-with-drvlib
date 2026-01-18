@@ -53,7 +53,7 @@
 // Counts the number of zeros at the start of a word.
 //
 //*****************************************************************************
-static int16_t Graphics_getNumberOfLeadingZeros(int32_t  x)
+ int16_t Graphics_getNumberOfLeadingZeros(int32_t  x)
 {
   int32_t  y = 0x80, count =0;
   int32_t  i;

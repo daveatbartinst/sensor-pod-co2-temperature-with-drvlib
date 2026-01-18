@@ -51,7 +51,7 @@
 
 #include <assert.h>
 
-static const uint16_t GPIO_PORT_TO_BASE[] = {
+ const uint16_t GPIO_PORT_TO_BASE[] = {
     0x00,
 #if defined(__MSP430_HAS_PORT1_R__)
     __MSP430_BASEADDRESS_PORT1_R__,

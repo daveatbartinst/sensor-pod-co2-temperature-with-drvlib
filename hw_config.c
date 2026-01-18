@@ -11,6 +11,7 @@
 #include <msp430.h>
 //#include <driverlib.h>
 #include <stdint.h>
+
 //project libs
 //#include "bi_lcd_spi_par.h"
 //#include "adc_esp_23.h"
@@ -186,12 +187,12 @@ void init_hardware(void){
 
 
 
-    P3OUT = 0XF0;
+    P3OUT = 0X0F;   // PULL UP RESISTORS ON P3.3 - P3.0
     P3DIR = 0XF0;  //P3.3 OUTPUT FOR X/R KISS
    // P3DS = 0XFF;  //DRIVE STRENGTH HIGH
     P3SEL0 = 0X00;  //SELECT
     P3SEL1 = 0X00;  //SELECT
-    //P3REN = 0X00;
+    P3REN = 0X00F; //ENABLE P3.0-P3.3 AS BCD INPUT
 
  //P3.0 TO P3.7 DATA BUS LOW
     //*********************************************************************************************************
@@ -339,28 +340,25 @@ void init_hardware(void){
     UCB0CTL1 = UCB0CTL1 & 0xFE;   // RESET RELEASED
 
 //*****************************************************************************************************
-//    I2C FOR SENSERION  SCD30  CO2, HUM, TEMP ON UCB1
+//    I2C FOR SENSIRION  SCD30  CO2, HUM, TEMP ON UCB1 for sensor only board
 //*****************************************************************************************************
-    UCB1CTL1 = 0xc1;   //select smclk (24mhz) as br source AND IN RESET
-//  UCA0CTL0 = 0x69;
-    UCB1CTL0 = 0xA9;    //last working
-//    UCA0CTL0 = 0x29;  //timing mode 0, msb first, 8 bits, 3-pin (4 wire), sync
-    //bit 7=0 phase 0 - TI phase 0 is same as freescale phase 1
-    //    6=1 pol 1 , clock idles high
-    //    5=1   msb out first
-    //    4=0 8 bits,
-    //    3=1 master
-    //    2,1 00 3wire spi
-    //    0=1 sync mode for spi
 
-    UCB1BRW_L = 0x18;//DIVIDE SMCLK BY b= /24  5 is /6 , 1 is divide by 2 CLOCK SIGNAL VIEWED WITH SCOPE - Vlo IS ABOVE .4V UNTIL DIVIDE BY 6
-    UCB1BRW_H = 0x00;  //BAUD RATE IS 1M
+     // UCB1CTLW0_L
+    UCB1CTLW0 = 0X0FC1;
+ //   UCB1CTL1 = 0xc1;   //select smclk (1mhz) as br source AND IN RESET
+ //   UCB1CTL0 = 0x0F;    //3 master, 2,1 I2C, 0 sync mode
+   // UCB1CTLW1  STAYS AS RESET VALUES
 
-    UCB1CTL1 = UCA0CTL1 & 0xFE;   // RESET RELEASED
+    UCB1BRW_L = 0x14;//desired is 50K  Divide 1M by 20 decimal  = 0x14
+    UCB1BRW_H = 0x00;  //BAUD RATE
+
+
+    UCB1CTLW0 &= 0xFFFE;
+    //UCB1CTL1 = UCA0CTL1 & 0xFE;   // RESET RELEASED
 
 //*****************************************************************************************************
 
-// set up I2C ON UCA0
+// set up UART for wifi ON UCA0 for sensor only board
 
 //***********************************************************************************************
 
@@ -376,7 +374,7 @@ void init_hardware(void){
 
 //
 //    //*****************************************************************************************************
-//	//set up UART on UCA1, 9600 BAUD  KISS
+//	//set up radio UART on UCA1, 9600 BAUD  for sensor only board
 //
 //	//   ****************************************************************************************************
 //	UCA1CTLW0 = UCA1CTLW0 | 0x0001;   // RESET set so setting can be changed
@@ -396,6 +394,19 @@ void init_hardware(void){
 //
 //	//    0,UCA1IFG SET INDICATES NEW DATA IN UCA1RXBUF
 //
+
+    //*****************************************************************************************************
+    //  //set up I2C on UCB2, for SHT45 humidity sensor on sensor only board
+    //
+    //  //   ****************************************************************************************************
+    //
+
+
+
+
+
+
+
 
 //    //*****************************************************************************************************
 //	//set up UART on UCA2, 9600 BAUD  Wifi

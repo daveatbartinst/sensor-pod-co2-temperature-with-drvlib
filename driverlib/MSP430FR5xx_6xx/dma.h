@@ -687,8 +687,8 @@ extern void DMA_enableRoundRobinPriority(void);
 //
 //! \brief Disables Round Robin prioritization.
 //!
-//! This function disables Round Robin Prioritization, enabling static
-//! prioritization of the DMA channels. In static prioritization, the DMA
+//! This function disables Round Robin Prioritization, enabling 
+//! prioritization of the DMA channels. In  prioritization, the DMA
 //! channels are prioritized with the lowest DMA channel index having the
 //! highest priority (i.e. DMA Channel 0 has the highest priority).
 //!

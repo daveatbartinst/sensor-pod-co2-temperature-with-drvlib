@@ -3208,7 +3208,7 @@ sfrl name   = address;
 #define LCDDIV__32          (0xF800u)  /* LCD_C LCD frequency divider: /32 */
 
 /* Display modes coded with Bits 2-4 */
-#define LCDSTATIC           (LCDSON)
+#define LCD           (LCDSON)
 #define LCD2MUX             (LCDMX0+LCDSON)
 #define LCD3MUX             (LCDMX1+LCDSON)
 #define LCD4MUX             (LCDMX1+LCDMX0+LCDSON)

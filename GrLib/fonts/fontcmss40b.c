@@ -53,7 +53,7 @@
 // The compressed data for the 40 point Cmss bold font.
 //
 //*****************************************************************************
-static const uint8_t g_pucCmss40bData[4485] =
+ const uint8_t g_pucCmss40bData[4485] =
 {
       4,  17,   0,  85,  32,   9, 240, 197,  69,  69,  69,  69,
      69,  69,  69,  69,  69,  69,  69,  69,  69,  69,  69,  69,

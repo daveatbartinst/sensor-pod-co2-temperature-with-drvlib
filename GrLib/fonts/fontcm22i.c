@@ -53,7 +53,7 @@
 // The compressed data for the 22 point Cm italic font.
 //
 //*****************************************************************************
-static const uint8_t g_pucCm22iData[2453] =
+ const uint8_t g_pucCm22iData[2453] =
 {
       5,   9,   0,  23,  80,  20,   7,  50,  82,  82,  82,  81,
      82,  82,  81,  97,  97,  81,  97, 240,  66,  82, 240, 240,

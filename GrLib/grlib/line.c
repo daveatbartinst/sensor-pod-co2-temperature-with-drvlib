@@ -221,7 +221,7 @@ void Graphics_drawLineV(const Graphics_Context *context, int32_t x, int32_t y1,
 //! \return Returns the clipping code.
 //
 //*****************************************************************************
-static int32_t Graphics_getClipCode(const Graphics_Context *context, int32_t x,
+ int32_t Graphics_getClipCode(const Graphics_Context *context, int32_t x,
 		int32_t  y)
 {
     int32_t  code;
@@ -301,7 +301,7 @@ static int32_t Graphics_getClipCode(const Graphics_Context *context, int32_t x,
 //! clipping region and zero if it does not.
 //
 //*****************************************************************************
-static int32_t Graphics_clipLine(const Graphics_Context *context, int32_t  *x1,
+ int32_t Graphics_clipLine(const Graphics_Context *context, int32_t  *x1,
 		int32_t  *y1, int32_t  *x2, int32_t  *y2)
 {
     int32_t  code, code1, code2, x, y;

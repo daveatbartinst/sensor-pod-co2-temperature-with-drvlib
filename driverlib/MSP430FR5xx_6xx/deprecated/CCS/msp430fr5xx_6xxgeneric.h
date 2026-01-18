@@ -122,7 +122,7 @@ typedef void (* __SFR_FARPTR)();
 #define BITD                   (0x2000)
 #define BITE                   (0x4000)
 #define BITF                   (0x8000)
-#define CAP                    (0x0100)       /* Capture mode: 1 /Compare mode :
+#define CAP                    (0x0100)       /* Capture mode: 1 /Compare mode : */
 /************************************************************
 * STATUS REGISTER BITS
 ************************************************************/
@@ -3164,7 +3164,7 @@ typedef void (* __SFR_FARPTR)();
 #define LCDDIV__32             (0xF800)       /* LCD_C LCD frequency divider: /32 */
 
 /* Display modes coded with Bits 2-4 */
-#define LCDSTATIC              (LCDSON)
+#define LCD              (LCDSON)
 #define LCD2MUX                (LCDMX0+LCDSON)
 #define LCD3MUX                (LCDMX1+LCDSON)
 #define LCD4MUX                (LCDMX1+LCDMX0+LCDSON)

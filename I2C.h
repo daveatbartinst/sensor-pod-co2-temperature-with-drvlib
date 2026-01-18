@@ -17,12 +17,12 @@
 //#include "driverlib.h"
 
 //#include "hw_config.h"
-#include <math.h>
-
+//#include <math.h>
+//
 #include <stdbool.h>
 #include <stdint.h>
-#include <stdio.h>
-#include <string.h>
+//#include <stdio.h>
+//#include <string.h>
 
 
 /**
@@ -42,6 +42,7 @@ struct I2C_RX_Meas_t
 
 
 // Timer Variables:
+
 extern volatile uint16_t I2C_BREAK_TIMER;
 extern volatile bool I2C_END_BREAK_FLG;
 
@@ -52,7 +53,7 @@ extern volatile uint16_t I2C_PEAK_READ_TIME;
 extern volatile uint16_t I2C_TIME;
 extern volatile bool TRACK_I2C_TIME;
 extern volatile uint8_t I2C_MODE_BYTE;
-
+extern uint8_t SCD_STATUS ;
 // Maximum and Minimum Temp, CO2, and Relative Humidity:
 extern volatile uint16_t max_CO2, min_CO2;
 extern volatile uint8_t max_T, min_T;
@@ -60,6 +61,9 @@ extern volatile uint8_t max_RH, min_RH;
 
 // Counts the number of bad reads:
 extern volatile uint16_t I2C_REDUX_COUNT;
+
+
+extern uint8_t SCD_STATUS ;
 
 /********************************************************************************************
  *                          SENSIRION SCD30 I2C FUNCTIONS:                                  *

@@ -96,7 +96,7 @@
 // CS_LFXTByPassWithTimeout.
 //
 //*****************************************************************************
-static uint32_t privateLFXTClockFrequency = 0;
+ uint32_t privateLFXTClockFrequency = 0;
 
 //*****************************************************************************
 //
@@ -107,9 +107,9 @@ static uint32_t privateLFXTClockFrequency = 0;
 // CS_LFXTByPassWithTimeout.
 //
 //*****************************************************************************
-static uint32_t privateHFXTClockFrequency = 0;
+ uint32_t privateHFXTClockFrequency = 0;
 
-static uint32_t privateCSASourceClockFromDCO(uint8_t clockdivider)
+ uint32_t privateCSASourceClockFromDCO(uint8_t clockdivider)
 {
     uint32_t CLKFrequency = 0;
 
@@ -179,7 +179,7 @@ static uint32_t privateCSASourceClockFromDCO(uint8_t clockdivider)
     return (CLKFrequency);
 }
 
-static uint32_t privateCSAComputeCLKFrequency(uint16_t CLKSource,
+ uint32_t privateCSAComputeCLKFrequency(uint16_t CLKSource,
                                               uint16_t CLKSourceDivider)
 {
     uint32_t CLKFrequency = 0;

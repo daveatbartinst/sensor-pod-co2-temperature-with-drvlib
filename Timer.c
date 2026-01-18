@@ -7,13 +7,19 @@
  *
  *
  */
-
+#include "msp430.h"
+#include <stdint.h>
+#include <stdio.h>
 #include "Timer.h"
 #include "init_var.h"
 //#include "driverlib.h"
 #include "I2C.h"
 #include "uart.h"
-#include <stdint.h>
+//#include <stdint.h>
+#include "main.h"
+
+
+
 // Holds Flag Values for half_mil:
 volatile uint8_t TIMING_FLAG_BYTE = 0;
 // Half_mil Counters Used for Timing:
@@ -57,9 +63,9 @@ void wait_ms(uint16_t ms)
     // Iterating by the half-mil
     MS_COUNTER = 2 * ms;
     // Start timer.
-    TBxCTL |= MC__UP;
+  //  TBxCTL |= MC__UP;  didn't know timer TB0 was used for, dpb
     // General interrupt enable
-    __enable_interrupt();
+ //   __enable_interrupt();
     while (MS_COUNTER)
     {
         // WAIT
@@ -96,6 +102,10 @@ __interrupt void half_mil(void)
         Set_New_Second;
         SECOND_COUNTER++;
         FIFTY_MS_COUNTER = 0;
+        SCD_SECOND++; // USED TO TIME SCD READING SEQUENCE IN MAIN, RESET AFTER 10 SECONDS
+        if(SCD_SECOND > 11){
+            SCD_SECOND = 0;
+        }
     }
     if (SECOND_COUNTER > 9)
     {

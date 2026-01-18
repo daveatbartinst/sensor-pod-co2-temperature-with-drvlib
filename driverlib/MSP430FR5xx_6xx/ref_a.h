@@ -79,7 +79,7 @@ extern "C"
 // can be returned by the Ref_A_getBandgapMode() function.
 //
 //*****************************************************************************
-#define REF_A_STATICMODE                                                   0x00
+#define REF_A_MODE                                                   0x00
 #define REF_A_SAMPLEMODE                                                 BGMODE
 
 //*****************************************************************************
@@ -249,16 +249,16 @@ extern void Ref_A_disableReferenceVoltage(uint16_t baseAddress);
 //!
 //! This function is used to return the bandgap mode of the Ref_A module,
 //! requested by the peripherals using the bandgap. If a peripheral requests
-//! static mode, then the bandgap mode will be static for all modules, whereas
+//!  mode, then the bandgap mode will be  for all modules, whereas
 //! if all of the peripherals using the bandgap request sample mode, then that
 //! will be the mode returned. Sample mode allows the bandgap to be active only
-//! when necessary to save on power consumption, static mode requires the
+//! when necessary to save on power consumption,  mode requires the
 //! bandgap to be active until no peripherals are using it anymore.
 //!
 //! \param baseAddress is the base address of the REF_A module.
 //!
 //! \return One of the following:
-//!         - \b Ref_A_STATICMODE if the bandgap is operating in static mode
+//!         - \b Ref_A_MODE if the bandgap is operating in  mode
 //!         - \b Ref_A_SAMPLEMODE if the bandgap is operating in sample mode
 //!         \n indicating the bandgap mode of the module
 //

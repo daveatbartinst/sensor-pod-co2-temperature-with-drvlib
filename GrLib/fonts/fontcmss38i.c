@@ -53,7 +53,7 @@
 // The compressed data for the 38 point Cmss italic font.
 //
 //*****************************************************************************
-static const uint8_t g_pucCmss38iData[4164] =
+ const uint8_t g_pucCmss38iData[4164] =
 {
       5,  15,   0,  69,  48,  31,  11, 240, 195, 131, 130, 146,
     131, 131, 131, 130, 146, 131, 131, 131, 130, 146, 146, 131,

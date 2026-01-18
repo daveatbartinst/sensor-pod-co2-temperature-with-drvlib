@@ -102,7 +102,7 @@ uint8_t Template_Memory[(LCD_X_SIZE * LCD_Y_SIZE * BPP + 7) / 8];
 //*****************************************************************************
 
 // Writes data to the LCD controller
-static void
+ void
 WriteData(uint16_t usData)
 {
     /* Write data to the LCD controller. For instance this can be bit banged
@@ -110,7 +110,7 @@ WriteData(uint16_t usData)
 }
 
 //// Writes a command to the LCD controller
-//static void
+// void
 //WriteCommand(uint8_t ucCommand)
 //{
 //    /* This function is typically very similar (sometimes the same) as WriteData()
@@ -130,7 +130,7 @@ void SetAddress(int16_t lX,
 // This function configures the GPIO pins used to control the LCD display
 // when the basic GPIO interface is in use. On exit, the LCD controller
 // has been reset and is ready to receive command and data writes.
-static void
+ void
 InitGPIOLCDInterface(void)
 {
     /* Initialize the hardware to configure the ports properly for communication */
@@ -138,7 +138,7 @@ InitGPIOLCDInterface(void)
 
 // Initialize DisplayBuffer.
 // This function initializes the display buffer and discards any cached data.
-static void
+ void
 InitLCDDisplayBuffer(uint32_t ulValue)
 {
     uint16_t i = 0,j = 0;
@@ -194,7 +194,7 @@ Template_DriverInit(void)
 //
 //*****************************************************************************
 // TemplateDisplayFix
-static void
+ void
 Template_DriverPixelDraw(void *pvDisplayData,
                          int16_t lX,
                          int16_t lY,
@@ -238,7 +238,7 @@ Template_DriverPixelDraw(void *pvDisplayData,
 //! \return None.
 //
 //*****************************************************************************
-static void
+ void
 Template_DriverPixelDrawMultiple(void *pvDisplayData,
                                  int16_t lX,
                                  int16_t lY,
@@ -394,7 +394,7 @@ Template_DriverPixelDrawMultiple(void *pvDisplayData,
 //! \return None.
 //
 //*****************************************************************************
-static void
+ void
 Template_DriverLineDrawH(void *pvDisplayData,
                          int16_t lX1,
                          int16_t lX2,
@@ -430,7 +430,7 @@ Template_DriverLineDrawH(void *pvDisplayData,
 //! \return None.
 //
 //*****************************************************************************
-static void
+ void
 Template_DriverLineDrawV(void *pvDisplayData,
                          int16_t lX,
                          int16_t lY1,
@@ -461,7 +461,7 @@ Template_DriverLineDrawV(void *pvDisplayData,
 //! \return None.
 //
 //*****************************************************************************
-static void
+ void
 Template_DriverRectFill(void *pvDisplayData,
                         const Graphics_Rectangle *pRect,
                         uint16_t ulValue)
@@ -494,7 +494,7 @@ Template_DriverRectFill(void *pvDisplayData,
 //! \return Returns the display-driver specific color.
 //
 //*****************************************************************************
-static uint32_t
+ uint32_t
 Template_DriverColorTranslate(void *pvDisplayData,
                               uint32_t ulValue)
 {
@@ -520,7 +520,7 @@ Template_DriverColorTranslate(void *pvDisplayData,
 //! \return None.
 //
 //*****************************************************************************
-static void
+ void
 Template_DriverFlush(void *pvDisplayData)
 {
     // Flush Buffer here. This function is not needed if a buffer is not used,
@@ -549,7 +549,7 @@ Template_DriverFlush(void *pvDisplayData)
 //! \return None.
 //
 //*****************************************************************************
-static void
+ void
 Template_DriverClearScreen(void *pvDisplayData,
                            uint16_t ulValue)
 {

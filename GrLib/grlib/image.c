@@ -44,7 +44,7 @@
 // buffer contains the actual data to be written to the LCD after translation.
 //
 //*****************************************************************************
-static uint32_t g_pulConvertedPalette[256];
+ uint32_t g_pulConvertedPalette[256];
 
 
 //*****************************************************************************
@@ -63,7 +63,7 @@ static uint32_t g_pulConvertedPalette[256];
 //! \return is the address of the global buffer containing the converted palette.
 //
 //*****************************************************************************
-static uint32_t * Graphics_convertPalette(const Graphics_Context *context,
+ uint32_t * Graphics_convertPalette(const Graphics_Context *context,
 		const Graphics_Image *image)
 {  
   if (image->numColors > 256)

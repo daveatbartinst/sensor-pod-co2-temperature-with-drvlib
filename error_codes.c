@@ -5,9 +5,10 @@
  *      Author: steve
  */
 
-//#include "error_codes.h"
+#include "error_codes.h"
 
 //standard libs
+
 #include "stdio.h"
 #include "stdlib.h"
 #include "stdint.h"

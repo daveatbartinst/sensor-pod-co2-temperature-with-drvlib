@@ -186,7 +186,7 @@ typedef struct Comp_E_initParam
 // parameter for functions: Comp_E_setReferenceAccuracy().
 //
 //*****************************************************************************
-#define COMP_E_ACCURACY_STATIC                                      (!CEREFACC)
+#define COMP_E_ACCURACY_                                      (!CEREFACC)
 #define COMP_E_ACCURACY_CLOCKED                                      (CEREFACC)
 
 //*****************************************************************************
@@ -273,7 +273,7 @@ extern bool Comp_E_init(uint16_t baseAddress,
 //! Use this function to generate a voltage to serve as a reference to the
 //! terminal selected at initialization. The voltage is determined by the
 //! equation: Vbase * (Numerator / 32). If the upper and lower limit voltage
-//! numerators are equal, then a static reference is defined, whereas they are
+//! numerators are equal, then a  reference is defined, whereas they are
 //! different then a hysteresis effect is generated.
 //!
 //! \param baseAddress is the base address of the COMP_E module.
@@ -312,7 +312,7 @@ extern void Comp_E_setReferenceVoltage(uint16_t baseAddress,
 //! \param baseAddress is the base address of the COMP_E module.
 //! \param referenceAccuracy is the reference accuracy setting of the COMP_E.
 //!        Valid values are:
-//!        - \b COMP_E_ACCURACY_STATIC
+//!        - \b COMP_E_ACCURACY_
 //!        - \b COMP_E_ACCURACY_CLOCKED - for low power / low accuracy
 //!        \n Modified bits are \b CEREFACC of \b CECTL2 register.
 //!

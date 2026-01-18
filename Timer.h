@@ -15,9 +15,9 @@
 //#include "UART.h"
 ////#include "driverlib.h"
 ////#include "init_var.h"
-#include "msp430.h"
-#include <stdint.h>
-#include <stdio.h>
+//#include "msp430.h"
+//#include <stdint.h>
+//#include <stdio.h>
 //
 
 //Timing flags and counters.

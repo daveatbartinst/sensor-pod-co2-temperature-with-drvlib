@@ -53,7 +53,7 @@
 // The compressed data for the 32 point Cmsc font.
 //
 //*****************************************************************************
-static const uint8_t g_pucCmsc32Data[3783] =
+ const uint8_t g_pucCmsc32Data[3783] =
 {
       4,  13,   0,  52,  25,   6, 195,  51,  51,  51,  51,  51,
      51,  51,  65,  81,  81,  81,  81,  81,  81,  81, 240, 115,

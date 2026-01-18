@@ -16,17 +16,18 @@
 //#include "UART.h"
 ////#include "driverlib.h"
 //#include <msp430.h>
-//#include <stdint.h>
+#include <stdint.h>
 ////#include "driverlib.h"
 
 // Used in main() to track the state during READ operations.
-//extern uint8_t data_ready_timing_byte;
-//extern uint8_t data_ready_timing_byte;
+
+extern uint8_t data_ready_timing_byte;
 
 
 /****************************************************************************************************
 *                                       SCD30 PRODUCTION SETTINGS:                                  *
 *****************************************************************************************************/
+
 
 /* Default ambient pressure is 1013.25 mbar. Deactivated to use altitude instead since most customers
 won't have accurate barometric pressure readings to input. They are expected to enter their altitude
@@ -76,8 +77,8 @@ command to set altitude in meters above sea level. */
 // "+ argument" indicates that the measurement command is sent along with
 // additional data as an "argument."
 #define Sensirion_Address (0x0061)
-// baud rate = SMCLK / 0x140; 16MHz / 320 = 50 kHz, maximum for Sensiron sensor
-#define Sensirion_Baud_Rate (0x0140)
+// baud rate = SMCLK / 0x140; 1MHz / 20 = 50 kHz, maximum for Sensiron sensor
+#define Sensirion_Baud_Rate (0x0014)
 #define Start_Continuous_Measurement_CMD (0x0010)      //+ argument
 #define Stop_Continuous_Measurement_CMD (0x0104)       // No argument
 #define Set_Measurement_Interval_CMD (0x4600)          // No argument
@@ -324,6 +325,8 @@ command to set altitude in meters above sea level. */
 #define UART_IE_REG UCA1IE
 #define UART_CTLW0 UCA1CTLW0
 #define UCAxIV UCA1IV
+
+
 #endif /* Pre-processor build settings*/
 
 

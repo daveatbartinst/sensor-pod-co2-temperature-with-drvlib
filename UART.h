@@ -17,14 +17,14 @@
 ////#include "init_var.h"
 //
 ////#include "driverlib.h"
-#include "msp430.h"
-#include <intrinsics.h>
-//
+//#include "msp430.h"
+//#include <intrinsics.h>
+////
 #include <stdbool.h>
 #include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+//#include <stdio.h>
+//#include <stdlib.h>
+//#include <string.h>
 
 
 // Flag initiates incrementing of UART_TIME.

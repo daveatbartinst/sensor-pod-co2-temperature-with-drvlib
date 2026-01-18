@@ -54,8 +54,8 @@
 // This required to set ESI comparator output as inverted
 #define INVERTED
 
-static uint16_t measureESIOSC(void);
-static void FindDAC(uint8_t selected_channel,
+ uint16_t measureESIOSC(void);
+ void FindDAC(uint8_t selected_channel,
                     uint8_t software_trigger);
 
 const ESI_AFE1_InitParams ESI_AFE1_INITPARAMS_DEFAULT =
@@ -693,7 +693,7 @@ void ESI_setNominalInternalOscFreq(void)
 //! \return None
 //
 //*****************************************************************************
-static uint16_t measureESIOSC(void){
+ uint16_t measureESIOSC(void){
     // This and next instruction realizes a clear->set ESICLKGON bit.
     ESIOSC &= ~(ESICLKGON);
 
@@ -1304,7 +1304,7 @@ void ESI_LC_DAC_calibration(uint8_t selected_channel)
 //
 //*****************************************************************************
 
-static void FindDAC(unsigned char selected_channel,
+ void FindDAC(unsigned char selected_channel,
                     unsigned char software_trigger)
 {
     // DAC Level tester, using successive approximation approach

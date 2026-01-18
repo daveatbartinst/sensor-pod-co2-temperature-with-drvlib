@@ -53,7 +53,7 @@
 // The compressed data for the 28 point Cmss font.
 //
 //*****************************************************************************
-static const uint8_t g_pucCmss28Data[2860] =
+ const uint8_t g_pucCmss28Data[2860] =
 {
       5,  11,   0,  38,  64,  20,   4, 130,  34,  34,  34,  34,
      34,  34,  34,  34,  34,  34,  34,  34,  34, 226,  34, 240,

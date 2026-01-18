@@ -53,7 +53,7 @@
 // The compressed data for the 14 point Cm italic font.
 //
 //*****************************************************************************
-static const uint8_t g_pucCm14iData[1665] =
+ const uint8_t g_pucCm14iData[1665] =
 {
       5,   6,   0,  11,  32,  12,   4,  33,  49,  49,  33,  49,
      49,  33, 241, 240,  64,  11,   4,  65,  17,  17,  17,  17,

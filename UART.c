@@ -8,12 +8,25 @@
  * @note Revised from and combined with the work of Emmanuel Akpan
  */
 #include "UART.h"
+
+#include "msp430.h"
+#include <intrinsics.h>
+//
+#include <stdbool.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 #include "init_var.h"
 //#include "driverlib.h"
 //#include <stdint.h>
 // Sensirion Constants:
-static const uint8_t UART_crc_polynomial = crc_polynomial; // 0x31 (x^8 + x^5 + x^4 + 1).
-static const uint8_t UART_initial_remainder = initial_remainder;
+
+
+
+ const uint8_t UART_crc_polynomial = crc_polynomial; // 0x31 (x^8 + x^5 + x^4 + 1).
+ const uint8_t UART_initial_remainder = initial_remainder;
 
 
 // Holds Converted Sensirion Read Values:
@@ -38,7 +51,7 @@ char UART_RX_BUFFER[UART_RX_BUFFER_SIZE];
 volatile uint8_t UART_RX_BUFFER_PTR = 0;
 
 // String for Byte Conversions:
-static char UART_BYTE_CONVERSION_STR[3];
+ char UART_BYTE_CONVERSION_STR[3];
 
 // Flag initiates incrementing of UART_TIME.
 volatile bool TRACK_UART_TIME = false;
@@ -59,7 +72,7 @@ volatile bool UART_PARSE_RX_FLG = false;
 
 // Tracks the state of the current RX, ensures buffer is only filled with
 // allowed chars in the correct format.
-static uint8_t RX_BYTE_STATE = 0;
+ uint8_t RX_BYTE_STATE = 0;
 
 // Flip flops between TX/~RX of UART CMDs.
 bool UART_TX_RX_FLIP_FLOP = true;
@@ -68,7 +81,7 @@ bool UART_FILL_CMD_BUFFER_FLG = false;
 
 
 /********************************************************************************************
- *                          UART STATIC HELPER FUNCTION DECLARATIONS:                       *
+ *                          UART  HELPER FUNCTION DECLARATIONS:                       *
  ********************************************************************************************/
 
 /**
@@ -77,7 +90,7 @@ bool UART_FILL_CMD_BUFFER_FLG = false;
  * @param input uint16_t to generate a CRC from.
  * @return uint8_t calculated CRC.
  */
-static uint8_t UART_checksum_calculation(uint16_t input);
+ uint8_t UART_checksum_calculation(uint16_t input);
 
 /**
  * @brief Checks whether a CRC received matches one calculated from the input value.
@@ -87,14 +100,14 @@ static uint8_t UART_checksum_calculation(uint16_t input);
  * @return true if the test CRC is equal to the CRC received.
  * @return false if the test CRC is not equal to the CRC received.
  */
-static bool UART_check_CRC(uint16_t input, uint8_t CRC);
+ bool UART_check_CRC(uint16_t input, uint8_t CRC);
 
 
 /********************************************************************************************
- *                            UART STATIC HELPER FUNCTIONS:                                 *
+ *                            UART  HELPER FUNCTIONS:                                 *
  ********************************************************************************************/
 
-static uint8_t UART_checksum_calculation(uint16_t input)
+ uint8_t UART_checksum_calculation(uint16_t input)
 {
     uint8_t i;
     bool MSB;
@@ -118,7 +131,7 @@ static uint8_t UART_checksum_calculation(uint16_t input)
     return (uint8_t)(input >> One_Byte);
 }
 
-static bool UART_check_CRC(uint16_t input, uint8_t CRC)
+ bool UART_check_CRC(uint16_t input, uint8_t CRC)
 {
     uint8_t calculated_CRC = UART_checksum_calculation(input);
     return (calculated_CRC == CRC);

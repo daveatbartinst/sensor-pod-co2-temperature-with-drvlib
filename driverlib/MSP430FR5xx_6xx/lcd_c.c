@@ -59,12 +59,12 @@ const LCD_C_initParam LCD_C_INIT_PARAM = {
     LCD_C_CLOCKSOURCE_ACLK,
     LCD_C_CLOCKDIVIDER_1,
     LCD_C_CLOCKPRESCALAR_1,
-    LCD_C_STATIC,
+    LCD_C_,
     LCD_C_STANDARD_WAVEFORMS,
     LCD_C_SEGMENTS_DISABLED
 };
 
-static void setLCDFunction(uint16_t baseAddress,
+ void setLCDFunction(uint16_t baseAddress,
                            uint8_t index,
                            uint16_t value)
 {
@@ -300,7 +300,7 @@ void LCD_C_setMemory(uint16_t baseAddress,
     uint8_t muxRate = HWREG16(baseAddress + OFS_LCDCCTL0)
                       & (LCDMX2 | LCDMX1 | LCDMX0);
 
-    // static, 2-mux, 3-mux, 4-mux
+    // , 2-mux, 3-mux, 4-mux
     if(muxRate <= (LCDMX1 | LCDMX0))
     {
         if(pin & 1)
@@ -328,7 +328,7 @@ void LCD_C_setBlinkingMemory(uint16_t baseAddress,
     uint8_t muxRate = HWREG16(baseAddress + OFS_LCDCCTL0)
                       & (LCDMX2 | LCDMX1 | LCDMX0);
 
-    // static, 2-mux, 3-mux, 4-mux
+    // , 2-mux, 3-mux, 4-mux
     if(muxRate <= (LCDMX1 | LCDMX0))
     {
         if(pin & 1)

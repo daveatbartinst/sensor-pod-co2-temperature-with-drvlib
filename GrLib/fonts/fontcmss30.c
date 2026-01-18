@@ -53,7 +53,7 @@
 // The compressed data for the 30 point Cmss font.
 //
 //*****************************************************************************
-static const uint8_t g_pucCmss30Data[3151] =
+ const uint8_t g_pucCmss30Data[3151] =
 {
       5,  13,   0,  50,  48,  24,   5, 162,  50,  50,  50,  50,
      50,  50,  50,  50,  50,  50,  50,  50,  50,  50,  50, 240,

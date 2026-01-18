@@ -26,15 +26,7 @@ main.obj: ../LCD_driver/Template_Driver.h
 main.obj: C:/Users/Dave/workspace_v12/sensor-pod-co2-temperature-with-drvlib/GrLib/grlib/grlib.h
 main.obj: ../images/images.h
 main.obj: ../uart.h
-main.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdio.h
-main.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdarg.h
-main.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdlib.h
-main.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/string.h
-main.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/xlocale/_string.h
 main.obj: ../I2C.h
-main.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/math.h
-main.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/_defs.h
-main.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/machine/_limits.h
 main.obj: ../timer.h
 main.obj: ../hw_config.h
 
@@ -90,23 +82,7 @@ C:/Users/Dave/workspace_v12/sensor-pod-co2-temperature-with-drvlib/GrLib/grlib/g
 
 ../uart.h:
 
-C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdio.h:
-
-C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdarg.h:
-
-C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdlib.h:
-
-C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/string.h:
-
-C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/xlocale/_string.h:
-
 ../I2C.h:
-
-C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/math.h:
-
-C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/_defs.h:
-
-C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/machine/_limits.h:
 
 ../timer.h:
 

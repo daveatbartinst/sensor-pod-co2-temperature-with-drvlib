@@ -10,7 +10,7 @@
 
 //MSP libs
 //#include <msp430.h>
-#include <stdint.h>
+//#include <stdint.h>
 //#include "driverlib.h"
 //#include "error_codes.h"
 //#include "hw_config.h"
@@ -89,38 +89,48 @@
                                                 //48  P2.7    NC
                                                 //49  P3.0/BSL_TX NC
                                                 //50  P3.1/BSL_RX NC
-                                                //
-//42  P2.0   buzzer
-#define	Buzzer_Output_Toggle	P2OUT ^= BIT0                          // Toggle P3.3
-#define	Buzzer_Output_Off		P2OUT |= BIT0	//buzzer is active low
-#define	Buzzer_Output_On		P2OUT &= ~BIT0	//buzzer is active low
+//                                                //
+////42  P2.0   buzzer
+//#define	Buzzer_Output_Toggle	P2OUT ^= BIT0                          // Toggle P3.3
+//#define	Buzzer_Output_Off		P2OUT |= BIT0	//buzzer is active low
+//#define	Buzzer_Output_On		P2OUT &= ~BIT0	//buzzer is active low
+//
+////43  P2.1   output3
+//#define Output_3_On     P2OUT |= BIT1    // turns on output 3
+//#define Output_3_Off    P2OUT &= ~BIT1    // turns off output 3
+//#define Output_3_Set    P2OUT &  BIT1           // determines if output 3 is on
+//
+//
+////44   P2.2   output2
+//#define Output_2_On     P2OUT |= BIT2    // turns on output 2
+//#define Output_2_Off    P2OUT &= ~BIT2
+//#define Output_2_Set    P2OUT &  BIT2           // determines if output 2 is on
+//
+////45  P2.3   output1
+//#define Output_1_On     P2OUT |= BIT3    // turns on output 1
+//#define Output_1_Off    P2OUT &= ~BIT3    // turns off output 1
+//#define Output_1_Set    P2OUT &  BIT3           // determines if output 1 is on
+//
+////47   P2.4   output4
+//#define Output_4_On     P2OUT |= BIT4    // turns on output 4
+//#define Output_4_Off    P2OUT &= ~BIT4    // turns off output 4
+//#define Output_4_Set    P2OUT &  BIT4             // determines if output 4 is on
 
-//43  P2.1   output3
-#define Output_3_On     P2OUT |= BIT1    // turns on output 3
-#define Output_3_Off    P2OUT &= ~BIT1    // turns off output 3
-#define Output_3_Set    P2OUT &  BIT1           // determines if output 3 is on
-
-
-//44   P2.2   output2
-#define Output_2_On     P2OUT |= BIT2    // turns on output 2
-#define Output_2_Off    P2OUT &= ~BIT2
-#define Output_2_Set    P2OUT &  BIT2           // determines if output 2 is on
-
-//45  P2.3   output1
-#define Output_1_On     P2OUT |= BIT3    // turns on output 1
-#define Output_1_Off    P2OUT &= ~BIT3    // turns off output 1
-#define Output_1_Set    P2OUT &  BIT3           // determines if output 1 is on
-
-//47   P2.4   output4
-#define Output_4_On     P2OUT |= BIT4    // turns on output 4
-#define Output_4_Off    P2OUT &= ~BIT4    // turns off output 4
-#define Output_4_Set    P2OUT &  BIT4             // determines if output 4 is on
-
-//48   P2.5   Safety drive LED for monitor only
-#define Cap_Couple_4_On     P4OUT |= BIT6    // turns on cap coupled (safety)
-#define Cap_Couple_4_Off    P4OUT &= ~BIT6    // turns off cap coupled (safety)
-#define Cap_Couple_Toggle   P4OUT ^= BIT6      // Toggle P7.3
-#define Cap_Couple_Disable  P4OUT &= ~BIT6
+//48   P2.5    LED for monitor only
+#define LED_1_On     P4OUT |= BIT4    // turns on cap coupled (safety)
+#define LED_1_Off    P4OUT &= ~BIT4    // turns off cap coupled (safety)
+#define LED_1_Toggle   P4OUT ^= BIT4      // Toggle P7.3
+//#define Cap_Couple_Disable  P4OUT &= ~BIT6
+//48   P2.5    LED for monitor only
+#define LED_2_On     P4OUT |= BIT5    // turns on cap coupled (safety)
+#define LED_2_Off    P4OUT &= ~BIT5    // turns off cap coupled (safety)
+#define LED_2_Toggle   P4OUT ^= BIT5      // Toggle P7.3
+//#define Cap_Couple_Disable  P4OUT &= ~BIT6
+//48   P2.5    LED for monitor only
+#define LED_3_On     P4OUT |= BIT6    // turns on cap coupled (safety)
+#define LED_3_Off    P4OUT &= ~BIT6    // turns off cap coupled (safety)
+#define LED_3_Toggle   P4OUT ^= BIT6      // Toggle P7.3
+//#define Cap_Couple_Disable  P4OUT &= ~BIT6
 
                                                 //57   P4.0   out4 input
     //49  P2.6    type S
@@ -131,36 +141,36 @@
 //#define Type_K   !( P6IN &  Bit1)             // pulled low WHEN set to K
 
 
+//
+//    //93  P8.0    LCD/RST;ODD5
+//#define LCD_Reset           P8OUT &= ~BIT0     //P5.0
+//#define LCD_Release_Reset   P8OUT |= BIT0
+//    //94  P8.1    LCD_D/C;EVEN5
+//#define LCD_Command     P8OUT &= ~BIT1      //P7.3 PTED &= Bit3_Clear
+//#define LCD_Data        P8OUT |= BIT1           // PTED |= Bit3_Set
+//
+//   //71  P5.4    LCD_/CS;ODD1
+//#define LCD_Enable_CSlo     P5OUT &= ~BIT5     // TI P7.4 PTCD &= Bit4_Clear
+//#define LCD_Disable_CShi    P5OUT |= BIT5           //   PTCD |= Bit4_Set
+//     //36  P1.1    TP_/CS;EVEN1
+//#define TS_Enable_CSlo      P1OUT &= ~BIT1 // touch screen CS clear
+//#define TS_Disable_CShi     P1OUT |= BIT1       // touch screen CS set
 
-    //93  P8.0    LCD/RST;ODD5
-#define LCD_Reset           P8OUT &= ~BIT0     //P5.0
-#define LCD_Release_Reset   P8OUT |= BIT0
-    //94  P8.1    LCD_D/C;EVEN5
-#define LCD_Command     P8OUT &= ~BIT1      //P7.3 PTED &= Bit3_Clear
-#define LCD_Data        P8OUT |= BIT1           // PTED |= Bit3_Set
-
-   //71  P5.4    LCD_/CS;ODD1
-#define LCD_Enable_CSlo     P5OUT &= ~BIT5     // TI P7.4 PTCD &= Bit4_Clear
-#define LCD_Disable_CShi    P5OUT |= BIT5           //   PTCD |= Bit4_Set
-     //36  P1.1    TP_/CS;EVEN1
-#define TS_Enable_CSlo      P1OUT &= ~BIT1 // touch screen CS clear
-#define TS_Disable_CShi     P1OUT |= BIT1       // touch screen CS set
-
-
-//needs mac????                                                //89  P7.6    SD_/CS;ODD2
-      //90  P7.7    LCD /WR;EVEN2
-//#define LCD_Command     P7OUT &= Bit7_Clear      //P7.3 PTED &= Bit7_Clear
-//#define LCD_Data            P7OUT |= BIT7           // PTED |= Bit7_Set
-//40 P1.6
-#define LCD_WR_low           P1OUT &= ~BIT6      //P7.3 PTED &= Bit7_Clear
-#define LCD_WR_hi            P1OUT |= BIT6           // PTED |= Bit7_Set
-
-//72  P5.5    LCD /RD
-#define LCD_RD_low           P5OUT &= ~BIT4      //P8.0 PTED &= Bit0_Clear
-#define LCD_RD_hi            P5OUT |= BIT4           // PTED |= Bit0_Set
-//for 67461 sd card /cs is port 5 bit 3
-//needs mac                                               //91  P8.0    LCD /RD;ODD3
-//needs mac                                                //92  P8.1    BackLite on/off;EVEN3
+//
+////needs mac????                                                //89  P7.6    SD_/CS;ODD2
+//      //90  P7.7    LCD /WR;EVEN2
+////#define LCD_Command     P7OUT &= Bit7_Clear      //P7.3 PTED &= Bit7_Clear
+////#define LCD_Data            P7OUT |= BIT7           // PTED |= Bit7_Set
+////40 P1.6
+//#define LCD_WR_low           P1OUT &= ~BIT6      //P7.3 PTED &= Bit7_Clear
+//#define LCD_WR_hi            P1OUT |= BIT6           // PTED |= Bit7_Set
+//
+////72  P5.5    LCD /RD
+//#define LCD_RD_low           P5OUT &= ~BIT4      //P8.0 PTED &= Bit0_Clear
+//#define LCD_RD_hi            P5OUT |= BIT4           // PTED |= Bit0_Set
+////for 67461 sd card /cs is port 5 bit 3
+////needs mac                                               //91  P8.0    LCD /RD;ODD3
+////needs mac                                                //92  P8.1    BackLite on/off;EVEN3
 //needs mac????                                               //93  P8.2    BLE /CS;ODD4
 //41  P1.7    STOP switch input
 #define Stop_Button_Pressed    P1IN &  BIT7             // pulled low if stop key pressed, check in half_mil

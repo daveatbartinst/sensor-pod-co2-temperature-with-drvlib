@@ -50,7 +50,7 @@
 
 #include <assert.h>
 
-static uint16_t __getRegisterSettingForInput(uint32_t input)
+ uint16_t __getRegisterSettingForInput(uint32_t input)
 {
     switch(input)
     {

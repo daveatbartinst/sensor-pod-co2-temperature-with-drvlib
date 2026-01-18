@@ -53,7 +53,7 @@
 // The compressed data for the 24 point Cm bold font.
 //
 //*****************************************************************************
-static const uint8_t g_pucCm24bData[2841] =
+ const uint8_t g_pucCm24bData[2841] =
 {
       5,  10,   0,  31,  32,  22,   6, 114,  52,  36,  36,  36,
      36,  50,  66,  66,  66,  66,  66,  66, 162,  52,  36,  50,

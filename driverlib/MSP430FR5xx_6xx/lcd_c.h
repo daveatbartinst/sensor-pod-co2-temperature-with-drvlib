@@ -112,7 +112,7 @@ typedef struct LCD_C_initParam
     uint16_t clockPrescalar;
     //! Selects LCD mux rate.
     //! \n Valid values are:
-    //! - \b LCD_C_STATIC [Default]
+    //! - \b LCD_C_ [Default]
     //! - \b LCD_C_2_MUX
     //! - \b LCD_C_3_MUX
     //! - \b LCD_C_4_MUX
@@ -202,7 +202,7 @@ extern const LCD_C_initParam LCD_C_INIT_PARAM;
 // functions: LCD_C_init().
 //
 //*****************************************************************************
-#define LCD_C_STATIC                                                      (0x0)
+#define LCD_C_                                                      (0x0)
 #define LCD_C_2_MUX                                                    (LCDMX0)
 #define LCD_C_3_MUX                                                    (LCDMX1)
 #define LCD_C_4_MUX                                           (LCDMX1 | LCDMX0)

@@ -1,7 +1,6 @@
 # FIXED
 
 Timer.obj: ../Timer.c
-Timer.obj: ../Timer.h
 Timer.obj: C:/ti/ccs1250/ccs/ccs_base/msp430/include/msp430.h
 Timer.obj: C:/ti/ccs1250/ccs/ccs_base/msp430/include/msp430fr5964.h
 Timer.obj: C:/ti/ccs1250/ccs/ccs_base/msp430/include/in430.h
@@ -20,20 +19,14 @@ Timer.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/mac
 Timer.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/sys/_stdint.h
 Timer.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdio.h
 Timer.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdarg.h
+Timer.obj: ../Timer.h
 Timer.obj: ../init_var.h
 Timer.obj: ../I2C.h
-Timer.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/math.h
-Timer.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/_defs.h
-Timer.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/machine/_limits.h
 Timer.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdbool.h
-Timer.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/string.h
-Timer.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/xlocale/_string.h
 Timer.obj: ../uart.h
-Timer.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdlib.h
+Timer.obj: ../main.h
 
 ../Timer.c:
-
-../Timer.h:
 
 C:/ti/ccs1250/ccs/ccs_base/msp430/include/msp430.h:
 
@@ -71,23 +64,15 @@ C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdio.h:
 
 C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdarg.h:
 
+../Timer.h:
+
 ../init_var.h:
 
 ../I2C.h:
 
-C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/math.h:
-
-C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/_defs.h:
-
-C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/machine/_limits.h:
-
 C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdbool.h:
-
-C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/string.h:
-
-C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/xlocale/_string.h:
 
 ../uart.h:
 
-C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdlib.h:
+../main.h:
 

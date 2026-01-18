@@ -10,49 +10,64 @@
 #include "msp430.h"
 #include "I2C.h"
 #include "init_var.h"
-//#include "driverlib.h"
+#include "main.h"   // would  not build with main.h  I2C_Status was not found
+
+#include <math.h>
+
+#include <stdbool.h>
 #include <stdint.h>
+#include <stdio.h>
+#include <string.h>
+
+
+
+
+
+
 // Sensirion Constants:
-static const uint8_t Sensirion_crc_polynomial = crc_polynomial; // 0x31 (x^8 + x^5 + x^4 + 1).
-static const uint8_t Sensirion_initial_remainder = initial_remainder;
+
+
+
+ const uint8_t Sensirion_crc_polynomial = crc_polynomial; // 0x31 (x^8 + x^5 + x^4 + 1).
+ const uint8_t Sensirion_initial_remainder = initial_remainder;
 
 // TX and RX Buffers:
-static volatile uint8_t I2C_TX_DATA[I2C_Transmit_Buffer_Size]; // Data transmitted
-static volatile uint8_t I2C_RX_DATA[I2C_Receive_Buffer_Size];  // Data received
+uint8_t I2C_TX_DATA[I2C_Transmit_Buffer_Size]; // Data transmitted
+uint8_t I2C_RX_DATA[I2C_Receive_Buffer_Size];  // Data received
 
 // Read Buffer:
-static volatile struct I2C_RX_Meas_t I2C_RX_READINGS[I2C_Readings_Buffer_Size]; // Data received after cleaning,
+ volatile struct I2C_RX_Meas_t I2C_RX_READINGS[I2C_Readings_Buffer_Size]; // Data received after cleaning,
                                                                                 // held in a struct.
 
 // Buffer Indices:
-static volatile uint8_t I2C_TX_INDEX = 0;          // Index for TX data arr.
-static volatile uint8_t I2C_RX_INDEX = 0;          // Index for RX data arr.
-static volatile uint8_t I2C_RX_READINGS_INDEX = 0; // Index for RX_READINGS arr.
+ volatile uint8_t I2C_TX_INDEX = 0;          // Index for TX data arr.
+ volatile uint8_t I2C_RX_INDEX = 0;          // Index for RX data arr.
+ volatile uint8_t I2C_RX_READINGS_INDEX = 0; // Index for RX_READINGS arr.
 
 // Command Sizes:
-static uint8_t I2C_TX_CMD_SIZE = 0; // Size of command to be transmitted, used to throw STOP.
-static uint8_t I2C_RX_CMD_SIZE = 0; // Size of command to be received, used to throw STOP.
+ uint8_t I2C_TX_CMD_SIZE = 0; // Size of command to be transmitted, used to throw STOP.
+ uint8_t I2C_RX_CMD_SIZE = 0; // Size of command to be received, used to throw STOP.
 
 // Boolean Condition Flags:
 // Used to determine successful transmission status.
-static volatile bool I2C_SUCCESS_FLG = false;
+// volatile bool I2C_SUCCESS_FLG = false;
 // Used to select which peak time to update.
 volatile uint8_t I2C_MODE_BYTE = 0;
 // 0-1 if set() function, 2-4 if get() function. Used by I2C_update_LED().
-//static enum LED_STATE I2C_LED_FLG_BYTE = NOT_IN_TRANSMISSION;
+// enum LED_STATE I2C_LED_FLG_BYTE = NOT_IN_TRANSMISSION;
 // Holds the return LED state once TX complete. Used by I2C_update_LED().
-//static enum LED_STATE RETURN_I2C_LED_FLG_BYTE = NOT_IN_TRANSMISSION;
+// enum LED_STATE RETURN_I2C_LED_FLG_BYTE = NOT_IN_TRANSMISSION;
 // Remains true if CRC is correct.
-static bool CRC_CHECK = true;
+ bool CRC_CHECK = true;
 
 
-//READ Static Variables:
-static uint32_t CO2 = 0, T = 0, RH = 0;
-static uint8_t READ_iterator = 0;
-static struct I2C_RX_Meas_t *measurement_ptr;
+//READ  Variables:
+ uint32_t CO2 = 0, T = 0, RH = 0;
+ uint8_t READ_iterator = 0;
+ struct I2C_RX_Meas_t *measurement_ptr;
 
 // Pointer containing location in which to store Sensirion command's returned value.
-static volatile uint16_t *I2C_RX_argument_ptr = 0;
+ volatile uint16_t *I2C_RX_argument_ptr = 0;
 
 // Peak I2C Times:
 // The time spent between the Start and Stop of a TX only.
@@ -77,33 +92,33 @@ volatile uint16_t I2C_REDUX_COUNT = 1;
 
 
 /********************************************************************************************
- *                 SENSIRION SCD30 I2C STATIC HELPER FUNCTION DECLARATIONS:                 *
+ *                 SENSIRION SCD30 I2C  HELPER FUNCTION DECLARATIONS:                 *
  ********************************************************************************************/
 
 /**
  * @brief Helper function to set master to transmitter mode, ready for START.
  */
-static void I2C_master_TX();
+ void I2C_master_TX();
 
 /**
  * @brief Helper function to set master to receiver mode. The master holds the bus until UCBxRXBUF is read.
  */
-static void I2C_master_RX();
+ void I2C_master_RX();
 
 /**
  * @brief Helper function to start communication by setting the START bit.
  */
-static void I2C_START();
+ void I2C_START();
 
 /**
  * @brief Helper function to set the STOP bit to end transmission.
  */
-static void I2C_STOP();
+ void I2C_STOP();
 
 /**
  * @brief Helper function to disable all I2C interrupts.
  */
-static void I2C_disable_interrupts();
+ void I2C_disable_interrupts();
 
 /**
  * @brief Helper function to generate the checksum (CRC) byte.
@@ -114,7 +129,7 @@ static void I2C_disable_interrupts();
  *
  * Only use the previous two bytes sent when CRC byte is called for.
  */
-static uint8_t Sensirion_checksum_calculation(uint16_t input);
+ uint8_t Sensirion_checksum_calculation(uint16_t input);
 
 /**
  * @brief Helper function to check the checksum (CRC) byte. Ensures calculated value is
@@ -122,7 +137,7 @@ static uint8_t Sensirion_checksum_calculation(uint16_t input);
  *
  * Only use the previous two bytes sent before CRC byte as input.
  */
-static bool Sensirion_check_CRC(uint16_t input, uint8_t CRC);
+ bool Sensirion_check_CRC(uint16_t input, uint8_t CRC);
 
 /**
  * @brief Helper function to automate the process of loading data into the TX_DATA buffer.
@@ -131,7 +146,7 @@ static bool Sensirion_check_CRC(uint16_t input, uint8_t CRC);
  * Sets all necessary settings for TX including START.
  * For sending only the command, set byte_num to 2 bytes transmitted.
  */
-static void I2C_load_TX_DATA(uint16_t command, uint16_t argument, uint8_t byte_num);
+ void I2C_load_TX_DATA(uint16_t command, uint16_t argument, uint8_t byte_num);
 
 /**
  * @brief Helper function to automate the process of loading data into the RX_DATA buffer.
@@ -139,7 +154,7 @@ static void I2C_load_TX_DATA(uint16_t command, uint16_t argument, uint8_t byte_n
  * For receiving only the argument, set byte_num to 3 bytes received,
  * 2 bytes of argument + 1 byte CRC.*Required 3ms wait time is included.
  */
-static void I2C_load_RX_DATA(uint8_t byte_num);
+ void I2C_load_RX_DATA(uint8_t byte_num);
 
 
 /**
@@ -148,7 +163,7 @@ static void I2C_load_RX_DATA(uint8_t byte_num);
  *
  * @param argument
  */
-static void I2C_parse_READ_DATA_element(uint32_t *argument);
+ void I2C_parse_READ_DATA_element(uint32_t *argument);
 
 /**
  * @brief Helper function to type pun from uint32_t to float without data conversion.
@@ -156,7 +171,7 @@ static void I2C_parse_READ_DATA_element(uint32_t *argument);
  * @param argument
  * @return float
  */
-static float I2C_bytes_to_float(uint32_t *argument);
+ float I2C_bytes_to_float(uint32_t *argument);
 
 /**
  * @brief Helper function to add newest reading "meas" to the reading buffer.
@@ -164,18 +179,18 @@ static float I2C_bytes_to_float(uint32_t *argument);
  * The element at index 0 is the oldest, and is the first to be overwritten by an element shift.
  * The element at the last index is the newest reading "meas."
  */
-static void add_to_RX_READINGS();
+ void add_to_RX_READINGS();
 
 /**
  * @brief Helper function to update the maximum TX/RX/READ time of I2C communication with the sensor.
  */
-static void I2C_update_peak_time();
+ void I2C_update_peak_time();
 
 /********************************************************************************************
- *                  SENSIRION SCD30 STATIC HELPER FUNCTIONS:                                *
+ *                  SENSIRION SCD30  HELPER FUNCTIONS:                                *
  ********************************************************************************************/
 
-static void I2C_master_TX()
+ void I2C_master_TX()
 {
     // Put eUSCI_B in reset state, clears flags and enabled interrupts
     UCBxCTLW0 |= UCSWRST;
@@ -191,7 +206,7 @@ static void I2C_master_TX()
     __enable_interrupt();
 }
 
-static void I2C_master_RX()
+ void I2C_master_RX()
 {
     // put eUSCI_B in reset state, clears flags and enabled interrupts
     UCBxCTLW0 |= UCSWRST;
@@ -205,13 +220,13 @@ static void I2C_master_RX()
     __enable_interrupt();
 }
 
-static void I2C_disable_interrupts()
+ void I2C_disable_interrupts()
 {
     // Disable I2C interrupts
     UCBxIE = 0;
 }
 
-static void I2C_START()
+ void I2C_START()
 {
     // Clear TX index for new transmission...old will be overwritten
     I2C_TX_INDEX = 0;
@@ -228,7 +243,7 @@ static void I2C_START()
     UCBxCTLW0 |= UCTXSTT;
 }
 
-static void I2C_STOP()
+ void I2C_STOP()
 {
     // Ensure no START
     UCBxCTLW0 &= ~(UCTXSTT);
@@ -239,7 +254,7 @@ static void I2C_STOP()
   //  I2C_LED_FLG_BYTE = NOT_IN_TRANSMISSION;
 }
 
-static uint8_t Sensirion_checksum_calculation(uint16_t input)
+ uint8_t Sensirion_checksum_calculation(uint16_t input)
 {
     uint8_t i;
     bool MSB;
@@ -263,7 +278,7 @@ static uint8_t Sensirion_checksum_calculation(uint16_t input)
     return (uint8_t)(input >> One_Byte);
 }
 
-static bool Sensirion_check_CRC(uint16_t input, uint8_t CRC)
+ bool Sensirion_check_CRC(uint16_t input, uint8_t CRC)
 {
     uint8_t calculated_CRC = Sensirion_checksum_calculation(input);
 
@@ -271,7 +286,7 @@ static bool Sensirion_check_CRC(uint16_t input, uint8_t CRC)
     return (calculated_CRC == CRC);
 }
 
-static void I2C_load_TX_DATA(uint16_t command, uint16_t argument, uint8_t byte_num)
+ void I2C_load_TX_DATA(uint16_t command, uint16_t argument, uint8_t byte_num)
 {
     I2C_TX_DATA[0] = (command & 0xFF00) >> One_Byte;           // Load MSB
     I2C_TX_DATA[1] = command & 0x00FF;                         // Load LSB
@@ -282,15 +297,17 @@ static void I2C_load_TX_DATA(uint16_t command, uint16_t argument, uint8_t byte_n
 
 
     // Reset success and update flags
-    I2C_SUCCESS_FLG = false;
+    Clr_I2C_Success_Flag ;
+ //   I2C_SUCCESS_FLG = false;
     SET_TX;
     I2C_master_TX();
     I2C_START();
 }
 
-static void I2C_load_RX_DATA(uint8_t byte_num)
+ void I2C_load_RX_DATA(uint8_t byte_num)
 {
-    I2C_SUCCESS_FLG = false;
+    Clr_I2C_Success_Flag ;
+   // I2C_SUCCESS_FLG = false;
 
     if (!IS_READ)
     {
@@ -304,7 +321,7 @@ static void I2C_load_RX_DATA(uint8_t byte_num)
 }
 
 // TODO: Implement a circular buffer to RX_Readings?
-static void add_to_RX_READINGS()
+ void add_to_RX_READINGS()
 {
     uint8_t i = 0;
     if (I2C_RX_READINGS_INDEX < I2C_Readings_Buffer_Size)
@@ -324,7 +341,7 @@ static void add_to_RX_READINGS()
     }
 }
 
-static void I2C_parse_READ_DATA_element(uint32_t *element)
+ void I2C_parse_READ_DATA_element(uint32_t *element)
 {
     *element = (uint32_t)I2C_RX_DATA[(READ_iterator)++] << Three_Bytes; // Load MMSB
     *element += (uint32_t)I2C_RX_DATA[(READ_iterator)++] << Two_Bytes;  // Load MLSB
@@ -344,7 +361,7 @@ static void I2C_parse_READ_DATA_element(uint32_t *element)
     CRC_CHECK = CRC_CHECK && (crc0 && crc1);
 }
 
-static float I2C_bytes_to_float(uint32_t *element)
+ float I2C_bytes_to_float(uint32_t *element)
 {
     // Using a union is considered correct practice over type punning with a pointer.
     union
@@ -359,7 +376,7 @@ static float I2C_bytes_to_float(uint32_t *element)
 }
 
 
-static void I2C_update_peak_time()
+ void I2C_update_peak_time()
 {
     if ((I2C_TIME > I2C_PEAK_TX_TIME) && IS_TX)
     {
@@ -484,7 +501,7 @@ void I2C_parse_RX_DATA()
         measurement_ptr->T = 0;
         measurement_ptr->RH = 0;
 
-        if (CRC_CHECK && I2C_SUCCESS_FLG)
+        if (CRC_CHECK &&  I2C_Success_Flag )
         {
             // Type punning the (rounded) byte data to float. Float is rounded and then
             // cast to size for later UART transmission. Pointer is used to ensure byte
@@ -594,7 +611,8 @@ void handle_I2C_TIMEOUT()
     I2C_STOP(); // Transmit STOP.
    // I2C_LED_FLG_BYTE = NOT_IN_TRANSMISSION;
     // Transmission failure, don't update times/LEDs/Parse.
-    I2C_SUCCESS_FLG = false;
+    Clr_I2C_Success_Flag ;
+   // I2C_SUCCESS_FLG = false;
     CLR_I2C_MODE_BYTE;
 }
 
@@ -604,21 +622,24 @@ void handle_I2C_TIMEOUT()
 
 void Sensirion_trigger_continuous_measurement(volatile uint16_t argument)
 {
-    // Update peak time of last TX/RX/READ
-   // I2C_update_peak_time();
-    // If argument not within Sensirion's defined parameters
-    if (!((argument >= 700 && argument <= 1400) || argument == 0))
-    {
-        // Indicate to update as a set() function with incorrect parameters.
-   //     I2C_LED_FLG_BYTE = INVALID_SET_FUNCT;
-    }
-    else
-    {
+//    // Update peak time of last TX/RX/READ
+//   // I2C_update_peak_time();
+//    // If argument not within Sensirion's defined parameters
+//    if (!((argument >= 700 && argument <= 1400) || argument == 0))
+//    {
+//        // Indicate to update as a set() function with incorrect parameters.
+//   //     I2C_LED_FLG_BYTE = INVALID_SET_FUNCT;
+//    }
+//    else
+//    {
         // Indicate to update as a set() function.
       //  RETURN_I2C_LED_FLG_BYTE = VALID_SET_FUNCT;
         // Populate buffer, sending 5 bytes
+
+    // &&&&&&&&  sensor only, pressure is alway 0 so you can use altitude for adjustment dpb
+    argument = 0;  // left code in case later we want to use milibars
         I2C_load_TX_DATA(Start_Continuous_Measurement_CMD, argument, 5);
-    }
+//    }
 }
 
 void Sensirion_stop_continuous_measurement()
@@ -921,7 +942,8 @@ __interrupt void USCI_B1_ISR(void)
     case 0x04: // Vector 4: No ACKnowledgement Interrupt FlaG (NACKIFG)
         I2C_STOP(); // Transmit STOP.
         // Transmission failure, don't update times/LEDs/Parse.
-        I2C_SUCCESS_FLG = false;
+        Clr_I2C_Success_Flag ;
+    //    I2C_SUCCESS_FLG = false;
         CLR_I2C_MODE_BYTE;
         break;
     case 0x06: // Vector 6: STarT condition Interrupt FlaG (STTIFG)
@@ -944,11 +966,13 @@ __interrupt void USCI_B1_ISR(void)
         if (I2C_RX_INDEX < I2C_RX_CMD_SIZE - 1) // Ensure previous transmission completed
         {
             I2C_RX_DATA[I2C_RX_INDEX++] = UCBxRXBUF; // Set global RX data variable.
+            SCD30_ALTITUDE = 0;  // just here for setting break pt dpb
         }
         else
         {
             // Transmission successful
-            I2C_SUCCESS_FLG = true;
+            Set_I2C_Success_Flag ;
+           // I2C_SUCCESS_FLG = true;
             I2C_STOP();                              // Transmit STOP after last byte read.
             I2C_RX_DATA[I2C_RX_INDEX++] = UCBxRXBUF; // Read last byte data.
             // Stop tracking I2C time
@@ -964,7 +988,8 @@ __interrupt void USCI_B1_ISR(void)
         else
         {
             // Transmission successful
-            I2C_SUCCESS_FLG = true;
+            Set_I2C_Success_Flag ;
+          //  I2C_SUCCESS_FLG = true;
             I2C_STOP(); // Transmit STOP after next ACKnowledge.
             // Stop tracking I2C time
             STOP_I2C_STOPWATCH;
