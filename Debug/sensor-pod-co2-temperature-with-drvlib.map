@@ -1,10 +1,10 @@
 ******************************************************************************
                   MSP430 Linker PC v21.6.1                     
 ******************************************************************************
->> Linked Sun Jan 18 14:10:13 2026
+>> Linked Thu Jan 22 14:50:24 2026
 
 OUTPUT FILE NAME:   <sensor-pod-co2-temperature-with-drvlib.out>
-ENTRY POINT SYMBOL: "_c_int00_noargs_mpu"  address: 0000429a
+ENTRY POINT SYMBOL: "_c_int00_noargs_mpu"  address: 000042a2
 
 
 MEMORY CONFIGURATION
@@ -17,8 +17,8 @@ MEMORY CONFIGURATION
   INFOC                 00001880   00000080  00000000  00000080  RWIX
   INFOB                 00001900   00000080  00000000  00000080  RWIX
   INFOA                 00001980   00000080  00000000  00000080  RWIX
-  RAM                   00001c00   00002000  000001b2  00001e4e  RWIX
-  FRAM                  00004000   0000bf80  00000302  0000bc7e  RWIX
+  RAM                   00001c00   00002000  00000207  00001df9  RWIX
+  FRAM                  00004000   0000bf80  00000308  0000bc78  RWIX
   JTAGSIGNATURE         0000ff80   00000004  00000004  00000000  RWIX  ffff 
   BSLSIGNATURE          0000ff84   00000004  00000004  00000000  RWIX  ffff 
   IPESIGNATURE          0000ff88   00000008  00000008  00000000  RWIX  ffff 
@@ -78,7 +78,7 @@ MEMORY CONFIGURATION
   INT53                 0000fffa   00000002  00000002  00000000  RWIX
   INT54                 0000fffc   00000002  00000002  00000000  RWIX
   RESET                 0000fffe   00000002  00000002  00000000  RWIX
-  FRAM2                 00010000   00033ff8  00000dc8  00033230  RWIX
+  FRAM2                 00010000   00033ff8  00000fc6  00033032  RWIX
 
 
 SECTION ALLOCATION MAP
@@ -86,14 +86,6 @@ SECTION ALLOCATION MAP
  output                                  attributes/
 section   page    origin      length       input sections
 --------  ----  ----------  ----------   ----------------
-.data      0    00001c00    00000092     UNINITIALIZED
-                  00001c00    00000035     main.obj (.data)
-                  00001c35    00000001     error_codes.obj (.data)
-                  00001c36    0000002e     I2C.obj (.data)
-                  00001c64    0000001f     UART.obj (.data)
-                  00001c83    00000001     init_var.obj (.data)
-                  00001c84    0000000e     Timer.obj (.data)
-
 .TI.persistent 
 *          0    00004000    00000000     UNINITIALIZED
 
@@ -114,32 +106,42 @@ section   page    origin      length       input sections
 
 .binit     0    00004000    00000000     
 
-.cinit     0    000042c2    00000040     
-                  000042c2    0000001d     (.cinit..data.load) [load image, compression = lzss]
-                  000042df    00000001     --HOLE-- [fill = 0]
-                  000042e0    0000000c     (__TI_handler_table)
-                  000042ec    00000006     (.cinit..bss.load) [load image, compression = zero_init]
-                  000042f2    00000010     (__TI_cinit_table)
+.cinit     0    000042ca    0000003e     
+                  000042ca    0000001b     (.cinit..data.load) [load image, compression = lzss]
+                  000042e5    00000001     --HOLE-- [fill = 0]
+                  000042e6    0000000c     (__TI_handler_table)
+                  000042f2    00000006     (.cinit..bss.load) [load image, compression = zero_init]
+                  000042f8    00000010     (__TI_cinit_table)
 
 .init_array 
 *          0    00004000    00000000     UNINITIALIZED
 
 .text:_isr 
-*          0    00004000    000002c2     
+*          0    00004000    000002ca     
                   00004000    00000146     UART.obj (.text:_isr:USCI_A1_Handler)
-                  00004146    000000aa     I2C.obj (.text:_isr:USCI_B1_ISR)
-                  000041f0    000000aa     Timer.obj (.text:_isr:half_mil)
-                  0000429a    00000020     rts430x_lc_ld_eabi.lib : boot.c.obj (.text:_isr:_c_int00_noargs_mpu)
-                  000042ba    00000008                            : isr_trap.asm.obj (.text:_isr:__TI_ISR_TRAP)
+                  00004146    000000b2     Timer.obj (.text:_isr:half_mil)
+                  000041f8    000000aa     I2C.obj (.text:_isr:USCI_B1_ISR)
+                  000042a2    00000020     rts430x_lc_ld_eabi.lib : boot.c.obj (.text:_isr:_c_int00_noargs_mpu)
+                  000042c2    00000008                            : isr_trap.asm.obj (.text:_isr:__TI_ISR_TRAP)
 
-.bss       0    00001c92    00000080     UNINITIALIZED
-                  00001c92    00000028     (.common:I2C_RX_READINGS)
-                  00001cba    00000018     (.common:UART_TX_READ_BUFFER)
-                  00001cd2    00000012     (.common:I2C_RX_DATA)
-                  00001ce4    00000012     (.common:UART_RX_BUFFER)
-                  00001cf6    00000012     (.common:UART_TX_COMMAND_BUFFER)
-                  00001d08    00000006     (.common:I2C_TX_DATA)
-                  00001d0e    00000004     (.common:measurement_ptr)
+.bss       0    00001c00    000000b4     UNINITIALIZED
+                  00001c00    00000030     (.common:I2C_TRANSACTION_HOLDER)
+                  00001c30    00000028     (.common:I2C_RX_READINGS)
+                  00001c58    00000018     (.common:UART_TX_READ_BUFFER)
+                  00001c70    00000012     (.common:I2C_RX_DATA)
+                  00001c82    00000012     (.common:UART_RX_BUFFER)
+                  00001c94    00000012     (.common:UART_TX_COMMAND_BUFFER)
+                  00001ca6    00000006     (.common:I2C_TX_DATA)
+                  00001cac    00000004     (.common:READING)
+                  00001cb0    00000004     (.common:measurement_ptr)
+
+.data      0    00001cb4    000000b3     UNINITIALIZED
+                  00001cb4    00000054     main.obj (.data)
+                  00001d08    0000002e     I2C.obj (.data)
+                  00001d36    0000001f     UART.obj (.data)
+                  00001d55    00000001     error_codes.obj (.data)
+                  00001d56    00000010     Timer.obj (.data)
+                  00001d66    00000001     init_var.obj (.data)
 
 .stack     0    00003b60    000000a0     UNINITIALIZED
                   00003b60    00000004     rts430x_lc_ld_eabi.lib : boot.c.obj (.stack)
@@ -277,63 +279,67 @@ SYSNMI     0    0000fffc    00000002
 .reset     0    0000fffe    00000002     
                   0000fffe    00000002     rts430x_lc_ld_eabi.lib : boot.c.obj (.reset)
 
-.text      0    00010000    00000dc8     
+.text      0    00010000    00000fc6     
                   00010000    00000156     hw_config.obj (.text:init_hardware)
-                  00010156    00000152     main.obj (.text:main)
-                  000102a8    00000132     rts430x_lc_ld_eabi.lib : fs_add.asm.obj (.text)
-                  000103da    00000106     UART.obj (.text:UART_RX_byte)
-                  000104e0    000000dc     rts430x_lc_ld_eabi.lib : s_floorf.c.obj (.text:floorf)
-                  000105bc    000000b8     I2C.obj (.text:I2C_parse_RX_DATA)
-                  00010674    000000a6     rts430x_lc_ld_eabi.lib : s_roundf.c.obj (.text:roundf)
-                  0001071a    0000009e     I2C.obj (.text:I2C_parse_READ_DATA_element)
-                  000107b8    00000078     rts430x_lc_ld_eabi.lib : autoinit.c.obj (.text:__TI_auto_init_nobinit_nopinit_hold_wdt:__TI_auto_init_nobinit_nopinit_hold_wdt)
-                  00010830    00000076                            : copy_decompress_lzss.c.obj (.text:decompress:lzss:__TI_decompress_lzss)
-                  000108a6    00000068     I2C.obj (.text:I2C_load_TX_DATA)
-                  0001090e    00000068     rts430x_lc_ld_eabi.lib : fs_toi.asm.obj (.text)
-                  00010976    00000060     main.obj (.text:SCD_init)
-                  000109d6    00000052     I2C.obj (.text:add_to_RX_READINGS)
-                  00010a28    0000004a     I2C.obj (.text:I2C_load_RX_DATA)
-                  00010a72    0000004a     rts430x_lc_ld_eabi.lib : fs_cmp.asm.obj (.text)
-                  00010abc    00000048     I2C.obj (.text:I2C_update_peak_time)
-                  00010b04    00000046     rts430x_lc_ld_eabi.lib : fs_tou.asm.obj (.text)
-                  00010b4a    0000003e                            : asr32.asm.obj (.text:l_asr_const)
-                  00010b88    0000003e                            : lsl32.asm.obj (.text:l_lsl_const)
-                  00010bc6    0000003c                            : memcpy.c.obj (.text:memcpy)
-                  00010c02    00000038     Timer.obj (.text:timer_A_init)
-                  00010c3a    0000002c     MSPMPU_INIT_LIB_CCS_msp430_large_code_large_data.lib : mpu_init.o (.text:__mpu_init)
-                  00010c66    00000026     I2C.obj (.text:Sensirion_checksum_calculation)
-                  00010c8c    00000024     I2C.obj (.text:Sensirion_toggle_automatic_self_calibration)
-                  00010cb0    00000024     rts430x_lc_ld_eabi.lib : copy_zero_init.c.obj (.text:decompress:ZI:__TI_zero_init_nomemset:__TI_zero_init_nomemset)
-                  00010cd4    0000001c     I2C.obj (.text:Sensirion_set_temperature_offset)
-                  00010cf0    0000001c     I2C.obj (.text:Sensirion_trigger_continuous_measurement)
-                  00010d0c    00000018     I2C.obj (.text:Sensirion_set_altitude_compensation)
-                  00010d24    00000018     I2C.obj (.text:UCB1_I2C_init_master)
-                  00010d3c    00000018     rts430x_lc_ld_eabi.lib : mult16_f5hw.asm.obj (.text)
-                  00010d54    00000016                            : copy_decompress_none.c.obj (.text:decompress:none:__TI_decompress_none)
-                  00010d6a    00000012     I2C.obj (.text:Sensirion_read_measurement_RX)
-                  00010d7c    00000010     rts430x_lc_ld_eabi.lib : asr32.asm.obj (.text:l_asr)
-                  00010d8c    0000000e     Timer.obj (.text:wait_ms)
-                  00010d9a    0000000c     I2C.obj (.text:Sensirion_read_measurement_TX)
-                  00010da6    0000000c     I2C.obj (.text:Sensirion_stop_continuous_measurement)
-                  00010db2    0000000a     rts430x_lc_ld_eabi.lib : fs_neg.asm.obj (.text)
-                  00010dbc    00000006                            : exit.c.obj (.text:abort)
-                  00010dc2    00000004                            : pre_init.c.obj (.text:_system_pre_init)
-                  00010dc6    00000002                            : startup.c.obj (.text:_system_post_cinit)
+                  00010156    00000132     rts430x_lc_ld_eabi.lib : fs_add.asm.obj (.text)
+                  00010288    00000130     main.obj (.text:main)
+                  000103b8    00000106     UART.obj (.text:UART_RX_byte)
+                  000104be    000000dc     rts430x_lc_ld_eabi.lib : s_floorf.c.obj (.text:floorf)
+                  0001059a    000000ce     I2C.obj (.text:I2C_avg_readings)
+                  00010668    000000b8     I2C.obj (.text:I2C_parse_RX_DATA)
+                  00010720    000000a6     rts430x_lc_ld_eabi.lib : s_roundf.c.obj (.text:roundf)
+                  000107c6    0000009e     I2C.obj (.text:I2C_parse_READ_DATA_element)
+                  00010864    00000090     rts430x_lc_ld_eabi.lib : fs_div.asm.obj (.text)
+                  000108f4    0000007e     I2C.obj (.text:add_to_RX_READINGS)
+                  00010972    00000078     rts430x_lc_ld_eabi.lib : autoinit.c.obj (.text:__TI_auto_init_nobinit_nopinit_hold_wdt:__TI_auto_init_nobinit_nopinit_hold_wdt)
+                  000109ea    00000076                            : copy_decompress_lzss.c.obj (.text:decompress:lzss:__TI_decompress_lzss)
+                  00010a60    00000068     I2C.obj (.text:I2C_load_TX_DATA)
+                  00010ac8    00000068     rts430x_lc_ld_eabi.lib : fs_toi.asm.obj (.text)
+                  00010b30    00000060     main.obj (.text:SCD_init)
+                  00010b90    0000004c     rts430x_lc_ld_eabi.lib : fs_toul.asm.obj (.text)
+                  00010bdc    0000004a     I2C.obj (.text:I2C_load_RX_DATA)
+                  00010c26    0000004a     rts430x_lc_ld_eabi.lib : fs_cmp.asm.obj (.text)
+                  00010c70    00000048     I2C.obj (.text:I2C_update_peak_time)
+                  00010cb8    00000046     rts430x_lc_ld_eabi.lib : fs_tou.asm.obj (.text)
+                  00010cfe    0000003e                            : asr32.asm.obj (.text:l_asr_const)
+                  00010d3c    0000003e                            : lsl32.asm.obj (.text:l_lsl_const)
+                  00010d7a    0000003c                            : memcpy.c.obj (.text:memcpy)
+                  00010db6    00000038     Timer.obj (.text:timer_A_init)
+                  00010dee    00000032     rts430x_lc_ld_eabi.lib : fs_ultof.asm.obj (.text)
+                  00010e20    0000002c     MSPMPU_INIT_LIB_CCS_msp430_large_code_large_data.lib : mpu_init.o (.text:__mpu_init)
+                  00010e4c    00000026     I2C.obj (.text:Sensirion_checksum_calculation)
+                  00010e72    00000024     I2C.obj (.text:Sensirion_toggle_automatic_self_calibration)
+                  00010e96    00000024     rts430x_lc_ld_eabi.lib : copy_zero_init.c.obj (.text:decompress:ZI:__TI_zero_init_nomemset:__TI_zero_init_nomemset)
+                  00010eba    00000024                            : fs_utof.asm.obj (.text)
+                  00010ede    0000001c     I2C.obj (.text:Sensirion_set_temperature_offset)
+                  00010efa    0000001c     I2C.obj (.text:Sensirion_trigger_continuous_measurement)
+                  00010f16    00000018     I2C.obj (.text:Sensirion_set_altitude_compensation)
+                  00010f2e    00000018     I2C.obj (.text:UCB1_I2C_init_master)
+                  00010f46    00000018     rts430x_lc_ld_eabi.lib : mult16_f5hw.asm.obj (.text)
+                  00010f5e    00000016                            : copy_decompress_none.c.obj (.text:decompress:none:__TI_decompress_none)
+                  00010f74    00000012     I2C.obj (.text:Sensirion_read_measurement_RX)
+                  00010f86    00000010     rts430x_lc_ld_eabi.lib : asr32.asm.obj (.text:l_asr)
+                  00010f96    0000000e     Timer.obj (.text:wait_ms)
+                  00010fa4    0000000c     I2C.obj (.text:Sensirion_read_measurement_TX)
+                  00010fb0    0000000a     rts430x_lc_ld_eabi.lib : fs_neg.asm.obj (.text)
+                  00010fba    00000006                            : exit.c.obj (.text:abort)
+                  00010fc0    00000004                            : pre_init.c.obj (.text:_system_pre_init)
+                  00010fc4    00000002                            : startup.c.obj (.text:_system_post_cinit)
 
 MODULE SUMMARY
 
        Module                       code   ro data   rw data
        ------                       ----   -------   -------
     .\
-       I2C.obj                      1064   2         114    
+       I2C.obj                      1302   2         162    
        UART.obj                     588    2         91     
-       main.obj                     434    0         53     
+       main.obj                     400    0         88     
        hw_config.obj                342    0         0      
-       Timer.obj                    240    2         14     
+       Timer.obj                    248    2         16     
        error_codes.obj              0      0         1      
        init_var.obj                 0      0         1      
     +--+----------------------------+------+---------+---------+
-       Total:                       2668   6         274    
+       Total:                       2880   6         359    
                                                             
     C:\ti\ccs1250\ccs\ccs_base\msp430\lib\FR59xx\MSPMPU_INIT_LIB_CCS_msp430_large_code_large_data.lib
        mpu_init.o                   44     0         0      
@@ -344,15 +350,19 @@ MODULE SUMMARY
        fs_add.asm.obj               306    0         0      
        s_floorf.c.obj               220    0         0      
        s_roundf.c.obj               166    0         0      
+       fs_div.asm.obj               144    0         0      
        autoinit.c.obj               120    0         0      
        copy_decompress_lzss.c.obj   118    0         0      
        fs_toi.asm.obj               104    0         0      
        asr32.asm.obj                78     0         0      
+       fs_toul.asm.obj              76     0         0      
        fs_cmp.asm.obj               74     0         0      
        fs_tou.asm.obj               70     0         0      
        lsl32.asm.obj                62     0         0      
        memcpy.c.obj                 60     0         0      
+       fs_ultof.asm.obj             50     0         0      
        copy_zero_init.c.obj         36     0         0      
+       fs_utof.asm.obj              36     0         0      
        boot.c.obj                   32     2         0      
        mult16_f5hw.asm.obj          24     0         0      
        copy_decompress_none.c.obj   22     0         0      
@@ -395,24 +405,24 @@ MODULE SUMMARY
        int54.asm.obj                0      2         0      
        startup.c.obj                2      0         0      
     +--+----------------------------+------+---------+---------+
-       Total:                       1522   68        0      
+       Total:                       1828   68        0      
                                                             
        Stack:                       0      0         160    
-       Linker Generated:            0      63        0      
+       Linker Generated:            0      61        0      
     +--+----------------------------+------+---------+---------+
-       Grand Total:                 4234   137       434    
+       Grand Total:                 4752   135       519    
 
 
 LINKER GENERATED COPY TABLES
 
-__TI_cinit_table @ 000042f2 records: 2, size/record: 8, table size: 16
-	.data: load addr=000042c2, load size=0000001d bytes, run addr=00001c00, run size=00000092 bytes, compression=lzss
-	.bss: load addr=000042ec, load size=00000006 bytes, run addr=00001c92, run size=00000080 bytes, compression=zero_init
+__TI_cinit_table @ 000042f8 records: 2, size/record: 8, table size: 16
+	.data: load addr=000042ca, load size=0000001b bytes, run addr=00001cb4, run size=000000b3 bytes, compression=lzss
+	.bss: load addr=000042f2, load size=00000006 bytes, run addr=00001c00, run size=000000b4 bytes, compression=zero_init
 
 
 LINKER GENERATED HANDLER TABLE
 
-__TI_handler_table @ 000042e0 records: 3, size/record: 4, table size: 12
+__TI_handler_table @ 000042e6 records: 3, size/record: 4, table size: 12
 	index: 0, handler: __TI_zero_init
 	index: 1, handler: __TI_decompress_lzss
 	index: 2, handler: __TI_decompress_none
@@ -677,16 +687,16 @@ address   name
 000009ce  AESAXIN                                    
 000009cf  AESAXIN_H                                  
 000009ce  AESAXIN_L                                  
-00001c6c  ARG                                        
-00001c6b  ARG_LSB                                    
-00001c6a  ARG_MSB                                    
+00001d3e  ARG                                        
+00001d3d  ARG_LSB                                    
+00001d3c  ARG_MSB                                    
 000004be  BCD2BIN                                    
 000004bf  BCD2BIN_H                                  
 000004be  BCD2BIN_L                                  
 000004bc  BIN2BCD                                    
 000004bd  BIN2BCD_H                                  
 000004bc  BIN2BCD_L                                  
-00010dbc  C$$EXIT                                    
+00010fba  C$$EXIT                                    
 0000043e  CAPTIO0CTL                                 
 0000043f  CAPTIO0CTL_H                               
 0000043e  CAPTIO0CTL_L                               
@@ -711,10 +721,11 @@ address   name
 000008ce  CEIV                                       
 000008cf  CEIV_H                                     
 000008ce  CEIV_L                                     
-00001c68  CMD                                        
-00001c3e  CO2                                        
-00001c65  CO2_LSB                                    
-00001c64  CO2_MSB                                    
+00001d3a  CMD                                        
+00001d10  CO2                                        
+00001d37  CO2_LSB                                    
+00001d36  CO2_MSB                                    
+00001cea  CO2_avg                                    
 00000996  CRC16DIRBW0                                
 00000997  CRC16DIRBW0_H                              
 00000996  CRC16DIRBW0_L                              
@@ -763,7 +774,7 @@ address   name
 00000156  CRCRESR                                    
 00000157  CRCRESR_H                                  
 00000156  CRCRESR_L                                  
-00001c3c  CRC_CHECK                                  
+00001d0e  CRC_CHECK                                  
 00000160  CSCTL0                                     
 00000161  CSCTL0_H                                   
 00000160  CSCTL0_L                                   
@@ -785,7 +796,7 @@ address   name
 0000016c  CSCTL6                                     
 0000016d  CSCTL6_H                                   
 0000016c  CSCTL6_L                                   
-00001c18  DELAY_MILLISECOND                          
+00001ccc  DELAY_MILLISECOND                          
 00000510  DMA0CTL                                    
 00000511  DMA0CTL_H                                  
 00000510  DMA0CTL_L                                  
@@ -873,48 +884,51 @@ address   name
 0000050e  DMAIV                                      
 0000050f  DMAIV_H                                    
 0000050e  DMAIV_L                                    
-00001c22  EE_MILLISECOND_TIMER                       
-00001c28  EE_WRITE_TIMER                             
-00001c35  ERROR_VALUE                                
-00001c88  FIFTY_MS_COUNTER                           
+00001d64  DPB_SECOND_COUNTER                         
+00001cd6  EE_MILLISECOND_TIMER                       
+00001cdc  EE_WRITE_TIMER                             
+00001d55  ERROR_VALUE                                
+00001d5a  FIFTY_MS_COUNTER                           
 00000140  FRCTL0                                     
 00000141  FRCTL0_H                                   
 00000140  FRCTL0_L                                   
-00001c2f  FW_VERSION_BUILD                           
-00001c2d  FW_VERSION_MAJOR                           
-00001c2e  FW_VERSION_MINOR                           
+00001ce3  FW_VERSION_BUILD                           
+00001ce1  FW_VERSION_MAJOR                           
+00001ce2  FW_VERSION_MINOR                           
 00000144  GCCTL0                                     
 00000145  GCCTL0_H                                   
 00000144  GCCTL0_L                                   
 00000146  GCCTL1                                     
 00000147  GCCTL1_H                                   
 00000146  GCCTL1_L                                   
-00001c16  HALF_MILLISECOND                           
-00001c85  HALF_MIL_COUNTER                           
-00001c90  HOUR_COUNTER                               
-00001c67  HUMIDITY                                   
-00001c1c  HUNDRED_MILLISECOND                        
-00001c2c  HUNDRED_MS_COUNTER                         
-00001c3b  I2C_MODE_BYTE                              
-00001c54  I2C_PEAK_READ_TIME                         
-00001c52  I2C_PEAK_RX_TIME                           
-00001c50  I2C_PEAK_TX_TIME                           
-00001c62  I2C_REDUX_COUNT                            
-00001c3a  I2C_RX_CMD_SIZE                            
-00001cd2  I2C_RX_DATA                                
-00001c37  I2C_RX_INDEX                               
-00001c92  I2C_RX_READINGS                            
-00001c38  I2C_RX_READINGS_INDEX                      
-00001c4c  I2C_RX_argument_ptr                        
-00001c56  I2C_TIME                                   
-00001c39  I2C_TX_CMD_SIZE                            
-00001d08  I2C_TX_DATA                                
-00001c36  I2C_TX_INDEX                               
-00010a28  I2C_load_RX_DATA                           
-000108a6  I2C_load_TX_DATA                           
-0001071a  I2C_parse_READ_DATA_element                
-000105bc  I2C_parse_RX_DATA                          
-00010abc  I2C_update_peak_time                       
+00001cca  HALF_MILLISECOND                           
+00001d57  HALF_MIL_COUNTER                           
+00001d62  HOUR_COUNTER                               
+00001d39  HUMIDITY                                   
+00001cd0  HUNDRED_MILLISECOND                        
+00001ce0  HUNDRED_MS_COUNTER                         
+00001d0d  I2C_MODE_BYTE                              
+00001d26  I2C_PEAK_READ_TIME                         
+00001d24  I2C_PEAK_RX_TIME                           
+00001d22  I2C_PEAK_TX_TIME                           
+00001d34  I2C_REDUX_COUNT                            
+00001d0c  I2C_RX_CMD_SIZE                            
+00001c70  I2C_RX_DATA                                
+00001d09  I2C_RX_INDEX                               
+00001c30  I2C_RX_READINGS                            
+00001d0a  I2C_RX_READINGS_INDEX                      
+00001d1e  I2C_RX_argument_ptr                        
+00001d28  I2C_TIME                                   
+00001c00  I2C_TRANSACTION_HOLDER                     
+00001d0b  I2C_TX_CMD_SIZE                            
+00001ca6  I2C_TX_DATA                                
+00001d08  I2C_TX_INDEX                               
+0001059a  I2C_avg_readings                           
+00010bdc  I2C_load_RX_DATA                           
+00010a60  I2C_load_TX_DATA                           
+000107c6  I2C_parse_READ_DATA_element                
+00010668  I2C_parse_RX_DATA                          
+00010c70  I2C_update_peak_time                       
 000004c4  MAC                                        
 000004da  MAC32H                                     
 000004db  MAC32H_H                                   
@@ -933,9 +947,9 @@ address   name
 000004c6  MACS_L                                     
 000004c5  MAC_H                                      
 000004c4  MAC_L                                      
-00001c2a  MFG_ID                                     
-00001c20  MINUTE                                     
-00001c8e  MINUTE_COUNTER                             
+00001cde  MFG_ID                                     
+00001cd4  MINUTE                                     
+00001d60  MINUTE_COUNTER                             
 000005a0  MPUCTL0                                    
 000005a1  MPUCTL0_H                                  
 000005a0  MPUCTL0_L                                  
@@ -981,8 +995,9 @@ address   name
 000004c2  MPYS_L                                     
 000004c1  MPY_H                                      
 000004c0  MPY_L                                      
-00001c86  MS_COUNTER                                 
-00001c1a  ONE_MILLISECOND                            
+00001d58  MS_COUNTER                                 
+00001cf2  NUM_READS                                  
+00001cce  ONE_MILLISECOND                            
 000004c8  OP2                                        
 000004e2  OP2H                                       
 000004e3  OP2H_H                                     
@@ -1292,8 +1307,9 @@ address   name
 00000158  RCCTL0                                     
 00000159  RCCTL0_H                                   
 00000158  RCCTL0_L                                   
-00001c4a  READ_iterator                              
-00001c6e  REDUX_MEASUREMENT                          
+00001cac  READING                                    
+00001d1c  READ_iterator                              
+00001d40  REDUX_MEASUREMENT                          
 000001b0  REFCTL0                                    
 000001b1  REFCTL0_H                                  
 000001b0  REFCTL0_L                                  
@@ -1315,7 +1331,8 @@ address   name
 000004ca  RESLO                                      
 000004cb  RESLO_H                                    
 000004ca  RESLO_L                                    
-00001c46  RH                                         
+00001d18  RH                                         
+00001cf0  RH_avg                                     
 000004ac  RT0PS                                      
 000004ad  RT1PS                                      
 000004ba  RTCADOWDAY                                 
@@ -1370,13 +1387,13 @@ address   name
 000004b6  RTCYEAR                                    
 000004b7  RTCYEAR_H                                  
 000004b6  RTCYEAR_L                                  
-00001c80  RX_BYTE_STATE                              
-00001c32  SCD30_ALTITUDE                             
-00001c31  SCD_SECOND                                 
-00001c34  SCD_STATUS                                 
-00010976  SCD_init                                   
-00001c1e  SECOND                                     
-00001c8a  SECOND_COUNTER                             
+00001d52  RX_BYTE_STATE                              
+00001ce6  SCD30_ALTITUDE                             
+00001ce5  SCD_SECOND                                 
+00001ce8  SCD_STATUS                                 
+00010b30  SCD_init                                   
+00001cd2  SECOND                                     
+00001d5c  SECOND_COUNTER                             
 00000100  SFRIE1                                     
 00000101  SFRIE1_H                                   
 00000100  SFRIE1_L                                   
@@ -1386,8 +1403,8 @@ address   name
 00000104  SFRRPCR                                    
 00000105  SFRRPCR_H                                  
 00000104  SFRRPCR_L                                  
-00001c69  SIZE                                       
-00001c24  SPI_SEND_MILLISECOND                       
+00001d3b  SIZE                                       
+00001cd8  SPI_SEND_MILLISECOND                       
 000004ce  SUMEXT                                     
 000004cf  SUMEXT_H                                   
 000004ce  SUMEXT_L                                   
@@ -1418,15 +1435,14 @@ address   name
 0000019a  SYSUNIV                                    
 0000019b  SYSUNIV_H                                  
 0000019a  SYSUNIV_L                                  
-00010c66  Sensirion_checksum_calculation             
-00010d6a  Sensirion_read_measurement_RX              
-00010d9a  Sensirion_read_measurement_TX              
-00010d0c  Sensirion_set_altitude_compensation        
-00010cd4  Sensirion_set_temperature_offset           
-00010da6  Sensirion_stop_continuous_measurement      
-00010c8c  Sensirion_toggle_automatic_self_calibration
-00010cf0  Sensirion_trigger_continuous_measurement   
-00001c42  T                                          
+00010e4c  Sensirion_checksum_calculation             
+00010f74  Sensirion_read_measurement_RX              
+00010fa4  Sensirion_read_measurement_TX              
+00010f16  Sensirion_set_altitude_compensation        
+00010ede  Sensirion_set_temperature_offset           
+00010e72  Sensirion_toggle_automatic_self_calibration
+00010efa  Sensirion_trigger_continuous_measurement   
+00001d14  T                                          
 00000352  TA0CCR0                                    
 00000353  TA0CCR0_H                                  
 00000352  TA0CCR0_L                                  
@@ -1619,29 +1635,30 @@ address   name
 000003d0  TB0R                                       
 000003d1  TB0R_H                                     
 000003d0  TB0R_L                                     
-00001c66  TEMPERATURE                                
-00001c8c  TEN_SECOND_COUNTER                         
-00001c26  TEST_MILLISECOND                           
-00001c84  TIMING_FLAG_BYTE                           
-00001c58  TRACK_I2C_TIME                             
-00001c76  TRACK_UART_TIME                            
-00001c7e  TX_READ                                    
-00001c00  U16_TRANSACTION_HOLDER                     
-00001c02  U32HOLDER                                  
-00001c06  U64HOLDER                                  
-00001c0e  U64HOLDER1                                 
-00001c82  UART_FILL_CMD_BUFFER_FLG                   
-00001c7f  UART_PARSE_RX_FLG                          
-00001c7c  UART_PEAK_RX_TIME                          
-00001c7a  UART_PEAK_TX_TIME                          
-00001ce4  UART_RX_BUFFER                             
-00001c75  UART_RX_BUFFER_PTR                         
-000103da  UART_RX_byte                               
-00001c78  UART_TIME                                  
-00001c74  UART_TX_BUFFER_PTR                         
-00001cf6  UART_TX_COMMAND_BUFFER                     
-00001cba  UART_TX_READ_BUFFER                        
-00001c81  UART_TX_RX_FLIP_FLOP                       
+00001d38  TEMPERATURE                                
+00001d5e  TEN_SECOND_COUNTER                         
+00001cda  TEST_MILLISECOND                           
+00001d56  TIMING_FLAG_BYTE                           
+00001d2a  TRACK_I2C_TIME                             
+00001d48  TRACK_UART_TIME                            
+00001d50  TX_READ                                    
+00001cee  T_avg                                      
+00001cb4  U16_TRANSACTION_HOLDER                     
+00001cb6  U32HOLDER                                  
+00001cba  U64HOLDER                                  
+00001cc2  U64HOLDER1                                 
+00001d54  UART_FILL_CMD_BUFFER_FLG                   
+00001d51  UART_PARSE_RX_FLG                          
+00001d4e  UART_PEAK_RX_TIME                          
+00001d4c  UART_PEAK_TX_TIME                          
+00001c82  UART_RX_BUFFER                             
+00001d47  UART_RX_BUFFER_PTR                         
+000103b8  UART_RX_byte                               
+00001d4a  UART_TIME                                  
+00001d46  UART_TX_BUFFER_PTR                         
+00001c94  UART_TX_COMMAND_BUFFER                     
+00001c58  UART_TX_READ_BUFFER                        
+00001d53  UART_TX_RX_FLIP_FLOP                       
 000005d0  UCA0ABCTL                                  
 000005d1  UCA0ABCTL_H                                
 000005d0  UCA0ABCTL_L                                
@@ -1888,7 +1905,7 @@ address   name
 0000068e  UCB1TXBUF                                  
 0000068f  UCB1TXBUF_H                                
 0000068e  UCB1TXBUF_L                                
-00010d24  UCB1_I2C_init_master                       
+00010f2e  UCB1_I2C_init_master                       
 000006de  UCB2ADDMASK                                
 000006df  UCB2ADDMASK_H                              
 000006de  UCB2ADDMASK_L                              
@@ -1992,22 +2009,22 @@ address   name
 0000070f  UCB3TXBUF_H                                
 0000070e  UCB3TXBUF_L                                
 00004000  USCI_A1_Handler                            
-00004146  USCI_B1_ISR                                
+000041f8  USCI_B1_ISR                                
 0000015c  WDTCTL                                     
 0000015d  WDTCTL_H                                   
 0000015c  WDTCTL_L                                   
-00001c30  WIFI_RESET_COUNT                           
+00001ce4  WIFI_RESET_COUNT                           
 00003c00  __STACK_END                                
 000000a0  __STACK_SIZE                               
-000042f2  __TI_CINIT_Base                            
-00004302  __TI_CINIT_Limit                           
-00004302  __TI_CINIT_Warm                            
-000042e0  __TI_Handler_Table_Base                    
-000042ec  __TI_Handler_Table_Limit                   
-000042ba  __TI_ISR_TRAP                              
-000107b8  __TI_auto_init_nobinit_nopinit_hold_wdt    
-00010830  __TI_decompress_lzss                       
-00010d54  __TI_decompress_none                       
+000042f8  __TI_CINIT_Base                            
+00004308  __TI_CINIT_Limit                           
+00004308  __TI_CINIT_Warm                            
+000042e6  __TI_Handler_Table_Base                    
+000042f2  __TI_Handler_Table_Limit                   
+000042c2  __TI_ISR_TRAP                              
+00010972  __TI_auto_init_nobinit_nopinit_hold_wdt    
+000109ea  __TI_decompress_lzss                       
+00010f5e  __TI_decompress_none                       
 0000ffb6  __TI_int19                                 
 0000ffb8  __TI_int20                                 
 0000ffba  __TI_int21                                 
@@ -2047,80 +2064,96 @@ address   name
 ffffffff  __TI_pprof_out_hndl                        
 ffffffff  __TI_prof_data_size                        
 ffffffff  __TI_prof_data_start                       
-00010cb0  __TI_zero_init_nomemset                    
+00010e96  __TI_zero_init_nomemset                    
 ffffffff  __c_args__                                 
 00000001  __mpu_enable                               
-00010c3a  __mpu_init                                 
-000102ae  __mspabi_addf                              
-00010a72  __mspabi_cmpf                              
-0001090e  __mspabi_fixfi                             
-00010b04  __mspabi_fixfu                             
-00010d3c  __mspabi_mpyi_f5hw                         
-00010db2  __mspabi_negf                              
-00010bc0  __mspabi_slll_1                            
-00010b9c  __mspabi_slll_10                           
-00010b98  __mspabi_slll_11                           
-00010b94  __mspabi_slll_12                           
-00010b90  __mspabi_slll_13                           
-00010b8c  __mspabi_slll_14                           
-00010b88  __mspabi_slll_15                           
-00010bbc  __mspabi_slll_2                            
-00010bb8  __mspabi_slll_3                            
-00010bb4  __mspabi_slll_4                            
-00010bb0  __mspabi_slll_5                            
-00010bac  __mspabi_slll_6                            
-00010ba8  __mspabi_slll_7                            
-00010ba4  __mspabi_slll_8                            
-00010ba0  __mspabi_slll_9                            
-00010d7c  __mspabi_sral                              
-00010b82  __mspabi_sral_1                            
-00010b5e  __mspabi_sral_10                           
-00010b5a  __mspabi_sral_11                           
-00010b56  __mspabi_sral_12                           
-00010b52  __mspabi_sral_13                           
-00010b4e  __mspabi_sral_14                           
-00010b4a  __mspabi_sral_15                           
-00010b7e  __mspabi_sral_2                            
-00010b7a  __mspabi_sral_3                            
-00010b76  __mspabi_sral_4                            
-00010b72  __mspabi_sral_5                            
-00010b6e  __mspabi_sral_6                            
-00010b6a  __mspabi_sral_7                            
-00010b66  __mspabi_sral_8                            
-00010b62  __mspabi_sral_9                            
-000102a8  __mspabi_subf                              
-0000429a  _c_int00_noargs_mpu                        
+00010e20  __mpu_init                                 
+0001015c  __mspabi_addf                              
+00010c26  __mspabi_cmpf                              
+00010864  __mspabi_divf                              
+00010ac8  __mspabi_fixfi                             
+00010cb8  __mspabi_fixfu                             
+00010b90  __mspabi_fixful                            
+00010eba  __mspabi_fltuf                             
+00010dee  __mspabi_fltulf                            
+00010f46  __mspabi_mpyi_f5hw                         
+00010fb0  __mspabi_negf                              
+00010d74  __mspabi_slll_1                            
+00010d50  __mspabi_slll_10                           
+00010d4c  __mspabi_slll_11                           
+00010d48  __mspabi_slll_12                           
+00010d44  __mspabi_slll_13                           
+00010d40  __mspabi_slll_14                           
+00010d3c  __mspabi_slll_15                           
+00010d70  __mspabi_slll_2                            
+00010d6c  __mspabi_slll_3                            
+00010d68  __mspabi_slll_4                            
+00010d64  __mspabi_slll_5                            
+00010d60  __mspabi_slll_6                            
+00010d5c  __mspabi_slll_7                            
+00010d58  __mspabi_slll_8                            
+00010d54  __mspabi_slll_9                            
+00010f86  __mspabi_sral                              
+00010d36  __mspabi_sral_1                            
+00010d12  __mspabi_sral_10                           
+00010d0e  __mspabi_sral_11                           
+00010d0a  __mspabi_sral_12                           
+00010d06  __mspabi_sral_13                           
+00010d02  __mspabi_sral_14                           
+00010cfe  __mspabi_sral_15                           
+00010d32  __mspabi_sral_2                            
+00010d2e  __mspabi_sral_3                            
+00010d2a  __mspabi_sral_4                            
+00010d26  __mspabi_sral_5                            
+00010d22  __mspabi_sral_6                            
+00010d1e  __mspabi_sral_7                            
+00010d1a  __mspabi_sral_8                            
+00010d16  __mspabi_sral_9                            
+00010156  __mspabi_subf                              
+000042a2  _c_int00_noargs_mpu                        
 0000fffe  _reset_vector                              
 00003b60  _stack                                     
-00010dc6  _system_post_cinit                         
-00010dc2  _system_pre_init                           
-00010dbc  abort                                      
-000109d6  add_to_RX_READINGS                         
-00001c83  data_ready_timing_byte                     
-000104e0  floorf                                     
+00010fc4  _system_post_cinit                         
+00010fc0  _system_pre_init                           
+00010fba  abort                                      
+000108f4  add_to_RX_READINGS                         
+00001cf4  data_ready                                 
+00001d66  data_ready_timing_byte                     
+000104be  floorf                                     
 00004000  fram_ipe_end                               
 00004000  fram_ipe_start                             
 00004000  fram_rw_start                              
 00004000  fram_rx_start                              
-000041f0  half_mil                                   
+00004146  half_mil                                   
 00010000  init_hardware                              
-00001c70  lazy_timer                                 
-00010156  main                                       
-00001c5a  max_CO2                                    
-00001c60  max_RH                                     
-00001c5e  max_T                                      
-00001d0e  measurement_ptr                            
-00010bc6  memcpy                                     
-00001c5c  min_CO2                                    
-00001c61  min_RH                                     
-00001c5f  min_T                                      
+00001d42  lazy_timer                                 
+00010288  main                                       
+00001d2c  max_CO2                                    
+00001d32  max_RH                                     
+00001d30  max_T                                      
+00001cb0  measurement_ptr                            
+00010d7a  memcpy                                     
+00001d2e  min_CO2                                    
+00001d33  min_RH                                     
+00001d31  min_T                                      
 0000a501  mpu_ctl0_value                             
 00001513  mpu_sam_value                              
 00000400  mpu_segment_border1                        
 00000400  mpu_segment_border2                        
-00010674  roundf                                     
-00010c02  timer_A_init                               
-00010d8c  wait_ms                                    
+00001d00  peak_CO2                                   
+00001d04  peak_RH                                    
+00001d06  peak_T                                     
+00001cfe  peak_UART_RX                               
+00001cfc  peak_UART_TX                               
+00001cfa  peak_read                                  
+00001cf8  peak_rx                                    
+00001cf6  peak_tx                                    
+00010720  roundf                                     
+00010db6  timer_A_init                               
+00001d02  trough_CO2                                 
+00001d05  trough_RH                                  
+00001d07  trough_T                                   
+00010f96  wait_ms                                    
 
 
 GLOBAL SYMBOLS: SORTED BY Symbol Address 
@@ -3611,92 +3644,111 @@ address   name
 000009ce  AESAXIN_L                                  
 000009cf  AESAXIN_H                                  
 00001513  mpu_sam_value                              
-00001c00  U16_TRANSACTION_HOLDER                     
-00001c02  U32HOLDER                                  
-00001c06  U64HOLDER                                  
-00001c0e  U64HOLDER1                                 
-00001c16  HALF_MILLISECOND                           
-00001c18  DELAY_MILLISECOND                          
-00001c1a  ONE_MILLISECOND                            
-00001c1c  HUNDRED_MILLISECOND                        
-00001c1e  SECOND                                     
-00001c20  MINUTE                                     
-00001c22  EE_MILLISECOND_TIMER                       
-00001c24  SPI_SEND_MILLISECOND                       
-00001c26  TEST_MILLISECOND                           
-00001c28  EE_WRITE_TIMER                             
-00001c2a  MFG_ID                                     
-00001c2c  HUNDRED_MS_COUNTER                         
-00001c2d  FW_VERSION_MAJOR                           
-00001c2e  FW_VERSION_MINOR                           
-00001c2f  FW_VERSION_BUILD                           
-00001c30  WIFI_RESET_COUNT                           
-00001c31  SCD_SECOND                                 
-00001c32  SCD30_ALTITUDE                             
-00001c34  SCD_STATUS                                 
-00001c35  ERROR_VALUE                                
-00001c36  I2C_TX_INDEX                               
-00001c37  I2C_RX_INDEX                               
-00001c38  I2C_RX_READINGS_INDEX                      
-00001c39  I2C_TX_CMD_SIZE                            
-00001c3a  I2C_RX_CMD_SIZE                            
-00001c3b  I2C_MODE_BYTE                              
-00001c3c  CRC_CHECK                                  
-00001c3e  CO2                                        
-00001c42  T                                          
-00001c46  RH                                         
-00001c4a  READ_iterator                              
-00001c4c  I2C_RX_argument_ptr                        
-00001c50  I2C_PEAK_TX_TIME                           
-00001c52  I2C_PEAK_RX_TIME                           
-00001c54  I2C_PEAK_READ_TIME                         
-00001c56  I2C_TIME                                   
-00001c58  TRACK_I2C_TIME                             
-00001c5a  max_CO2                                    
-00001c5c  min_CO2                                    
-00001c5e  max_T                                      
-00001c5f  min_T                                      
-00001c60  max_RH                                     
-00001c61  min_RH                                     
-00001c62  I2C_REDUX_COUNT                            
-00001c64  CO2_MSB                                    
-00001c65  CO2_LSB                                    
-00001c66  TEMPERATURE                                
-00001c67  HUMIDITY                                   
-00001c68  CMD                                        
-00001c69  SIZE                                       
-00001c6a  ARG_MSB                                    
-00001c6b  ARG_LSB                                    
-00001c6c  ARG                                        
-00001c6e  REDUX_MEASUREMENT                          
-00001c70  lazy_timer                                 
-00001c74  UART_TX_BUFFER_PTR                         
-00001c75  UART_RX_BUFFER_PTR                         
-00001c76  TRACK_UART_TIME                            
-00001c78  UART_TIME                                  
-00001c7a  UART_PEAK_TX_TIME                          
-00001c7c  UART_PEAK_RX_TIME                          
-00001c7e  TX_READ                                    
-00001c7f  UART_PARSE_RX_FLG                          
-00001c80  RX_BYTE_STATE                              
-00001c81  UART_TX_RX_FLIP_FLOP                       
-00001c82  UART_FILL_CMD_BUFFER_FLG                   
-00001c83  data_ready_timing_byte                     
-00001c84  TIMING_FLAG_BYTE                           
-00001c85  HALF_MIL_COUNTER                           
-00001c86  MS_COUNTER                                 
-00001c88  FIFTY_MS_COUNTER                           
-00001c8a  SECOND_COUNTER                             
-00001c8c  TEN_SECOND_COUNTER                         
-00001c8e  MINUTE_COUNTER                             
-00001c90  HOUR_COUNTER                               
-00001c92  I2C_RX_READINGS                            
-00001cba  UART_TX_READ_BUFFER                        
-00001cd2  I2C_RX_DATA                                
-00001ce4  UART_RX_BUFFER                             
-00001cf6  UART_TX_COMMAND_BUFFER                     
-00001d08  I2C_TX_DATA                                
-00001d0e  measurement_ptr                            
+00001c00  I2C_TRANSACTION_HOLDER                     
+00001c30  I2C_RX_READINGS                            
+00001c58  UART_TX_READ_BUFFER                        
+00001c70  I2C_RX_DATA                                
+00001c82  UART_RX_BUFFER                             
+00001c94  UART_TX_COMMAND_BUFFER                     
+00001ca6  I2C_TX_DATA                                
+00001cac  READING                                    
+00001cb0  measurement_ptr                            
+00001cb4  U16_TRANSACTION_HOLDER                     
+00001cb6  U32HOLDER                                  
+00001cba  U64HOLDER                                  
+00001cc2  U64HOLDER1                                 
+00001cca  HALF_MILLISECOND                           
+00001ccc  DELAY_MILLISECOND                          
+00001cce  ONE_MILLISECOND                            
+00001cd0  HUNDRED_MILLISECOND                        
+00001cd2  SECOND                                     
+00001cd4  MINUTE                                     
+00001cd6  EE_MILLISECOND_TIMER                       
+00001cd8  SPI_SEND_MILLISECOND                       
+00001cda  TEST_MILLISECOND                           
+00001cdc  EE_WRITE_TIMER                             
+00001cde  MFG_ID                                     
+00001ce0  HUNDRED_MS_COUNTER                         
+00001ce1  FW_VERSION_MAJOR                           
+00001ce2  FW_VERSION_MINOR                           
+00001ce3  FW_VERSION_BUILD                           
+00001ce4  WIFI_RESET_COUNT                           
+00001ce5  SCD_SECOND                                 
+00001ce6  SCD30_ALTITUDE                             
+00001ce8  SCD_STATUS                                 
+00001cea  CO2_avg                                    
+00001cee  T_avg                                      
+00001cf0  RH_avg                                     
+00001cf2  NUM_READS                                  
+00001cf4  data_ready                                 
+00001cf6  peak_tx                                    
+00001cf8  peak_rx                                    
+00001cfa  peak_read                                  
+00001cfc  peak_UART_TX                               
+00001cfe  peak_UART_RX                               
+00001d00  peak_CO2                                   
+00001d02  trough_CO2                                 
+00001d04  peak_RH                                    
+00001d05  trough_RH                                  
+00001d06  peak_T                                     
+00001d07  trough_T                                   
+00001d08  I2C_TX_INDEX                               
+00001d09  I2C_RX_INDEX                               
+00001d0a  I2C_RX_READINGS_INDEX                      
+00001d0b  I2C_TX_CMD_SIZE                            
+00001d0c  I2C_RX_CMD_SIZE                            
+00001d0d  I2C_MODE_BYTE                              
+00001d0e  CRC_CHECK                                  
+00001d10  CO2                                        
+00001d14  T                                          
+00001d18  RH                                         
+00001d1c  READ_iterator                              
+00001d1e  I2C_RX_argument_ptr                        
+00001d22  I2C_PEAK_TX_TIME                           
+00001d24  I2C_PEAK_RX_TIME                           
+00001d26  I2C_PEAK_READ_TIME                         
+00001d28  I2C_TIME                                   
+00001d2a  TRACK_I2C_TIME                             
+00001d2c  max_CO2                                    
+00001d2e  min_CO2                                    
+00001d30  max_T                                      
+00001d31  min_T                                      
+00001d32  max_RH                                     
+00001d33  min_RH                                     
+00001d34  I2C_REDUX_COUNT                            
+00001d36  CO2_MSB                                    
+00001d37  CO2_LSB                                    
+00001d38  TEMPERATURE                                
+00001d39  HUMIDITY                                   
+00001d3a  CMD                                        
+00001d3b  SIZE                                       
+00001d3c  ARG_MSB                                    
+00001d3d  ARG_LSB                                    
+00001d3e  ARG                                        
+00001d40  REDUX_MEASUREMENT                          
+00001d42  lazy_timer                                 
+00001d46  UART_TX_BUFFER_PTR                         
+00001d47  UART_RX_BUFFER_PTR                         
+00001d48  TRACK_UART_TIME                            
+00001d4a  UART_TIME                                  
+00001d4c  UART_PEAK_TX_TIME                          
+00001d4e  UART_PEAK_RX_TIME                          
+00001d50  TX_READ                                    
+00001d51  UART_PARSE_RX_FLG                          
+00001d52  RX_BYTE_STATE                              
+00001d53  UART_TX_RX_FLIP_FLOP                       
+00001d54  UART_FILL_CMD_BUFFER_FLG                   
+00001d55  ERROR_VALUE                                
+00001d56  TIMING_FLAG_BYTE                           
+00001d57  HALF_MIL_COUNTER                           
+00001d58  MS_COUNTER                                 
+00001d5a  FIFTY_MS_COUNTER                           
+00001d5c  SECOND_COUNTER                             
+00001d5e  TEN_SECOND_COUNTER                         
+00001d60  MINUTE_COUNTER                             
+00001d62  HOUR_COUNTER                               
+00001d64  DPB_SECOND_COUNTER                         
+00001d66  data_ready_timing_byte                     
 00003b60  _stack                                     
 00003c00  __STACK_END                                
 00004000  USCI_A1_Handler                            
@@ -3704,15 +3756,15 @@ address   name
 00004000  fram_ipe_start                             
 00004000  fram_rw_start                              
 00004000  fram_rx_start                              
-00004146  USCI_B1_ISR                                
-000041f0  half_mil                                   
-0000429a  _c_int00_noargs_mpu                        
-000042ba  __TI_ISR_TRAP                              
-000042e0  __TI_Handler_Table_Base                    
-000042ec  __TI_Handler_Table_Limit                   
-000042f2  __TI_CINIT_Base                            
-00004302  __TI_CINIT_Limit                           
-00004302  __TI_CINIT_Warm                            
+00004146  half_mil                                   
+000041f8  USCI_B1_ISR                                
+000042a2  _c_int00_noargs_mpu                        
+000042c2  __TI_ISR_TRAP                              
+000042e6  __TI_Handler_Table_Base                    
+000042f2  __TI_Handler_Table_Limit                   
+000042f8  __TI_CINIT_Base                            
+00004308  __TI_CINIT_Limit                           
+00004308  __TI_CINIT_Warm                            
 0000a501  mpu_ctl0_value                             
 0000ffb6  __TI_int19                                 
 0000ffb8  __TI_int20                                 
@@ -3752,79 +3804,83 @@ address   name
 0000fffc  __TI_int54                                 
 0000fffe  _reset_vector                              
 00010000  init_hardware                              
-00010156  main                                       
-000102a8  __mspabi_subf                              
-000102ae  __mspabi_addf                              
-000103da  UART_RX_byte                               
-000104e0  floorf                                     
-000105bc  I2C_parse_RX_DATA                          
-00010674  roundf                                     
-0001071a  I2C_parse_READ_DATA_element                
-000107b8  __TI_auto_init_nobinit_nopinit_hold_wdt    
-00010830  __TI_decompress_lzss                       
-000108a6  I2C_load_TX_DATA                           
-0001090e  __mspabi_fixfi                             
-00010976  SCD_init                                   
-000109d6  add_to_RX_READINGS                         
-00010a28  I2C_load_RX_DATA                           
-00010a72  __mspabi_cmpf                              
-00010abc  I2C_update_peak_time                       
-00010b04  __mspabi_fixfu                             
-00010b4a  __mspabi_sral_15                           
-00010b4e  __mspabi_sral_14                           
-00010b52  __mspabi_sral_13                           
-00010b56  __mspabi_sral_12                           
-00010b5a  __mspabi_sral_11                           
-00010b5e  __mspabi_sral_10                           
-00010b62  __mspabi_sral_9                            
-00010b66  __mspabi_sral_8                            
-00010b6a  __mspabi_sral_7                            
-00010b6e  __mspabi_sral_6                            
-00010b72  __mspabi_sral_5                            
-00010b76  __mspabi_sral_4                            
-00010b7a  __mspabi_sral_3                            
-00010b7e  __mspabi_sral_2                            
-00010b82  __mspabi_sral_1                            
-00010b88  __mspabi_slll_15                           
-00010b8c  __mspabi_slll_14                           
-00010b90  __mspabi_slll_13                           
-00010b94  __mspabi_slll_12                           
-00010b98  __mspabi_slll_11                           
-00010b9c  __mspabi_slll_10                           
-00010ba0  __mspabi_slll_9                            
-00010ba4  __mspabi_slll_8                            
-00010ba8  __mspabi_slll_7                            
-00010bac  __mspabi_slll_6                            
-00010bb0  __mspabi_slll_5                            
-00010bb4  __mspabi_slll_4                            
-00010bb8  __mspabi_slll_3                            
-00010bbc  __mspabi_slll_2                            
-00010bc0  __mspabi_slll_1                            
-00010bc6  memcpy                                     
-00010c02  timer_A_init                               
-00010c3a  __mpu_init                                 
-00010c66  Sensirion_checksum_calculation             
-00010c8c  Sensirion_toggle_automatic_self_calibration
-00010cb0  __TI_zero_init_nomemset                    
-00010cd4  Sensirion_set_temperature_offset           
-00010cf0  Sensirion_trigger_continuous_measurement   
-00010d0c  Sensirion_set_altitude_compensation        
-00010d24  UCB1_I2C_init_master                       
-00010d3c  __mspabi_mpyi_f5hw                         
-00010d54  __TI_decompress_none                       
-00010d6a  Sensirion_read_measurement_RX              
-00010d7c  __mspabi_sral                              
-00010d8c  wait_ms                                    
-00010d9a  Sensirion_read_measurement_TX              
-00010da6  Sensirion_stop_continuous_measurement      
-00010db2  __mspabi_negf                              
-00010dbc  C$$EXIT                                    
-00010dbc  abort                                      
-00010dc2  _system_pre_init                           
-00010dc6  _system_post_cinit                         
+00010156  __mspabi_subf                              
+0001015c  __mspabi_addf                              
+00010288  main                                       
+000103b8  UART_RX_byte                               
+000104be  floorf                                     
+0001059a  I2C_avg_readings                           
+00010668  I2C_parse_RX_DATA                          
+00010720  roundf                                     
+000107c6  I2C_parse_READ_DATA_element                
+00010864  __mspabi_divf                              
+000108f4  add_to_RX_READINGS                         
+00010972  __TI_auto_init_nobinit_nopinit_hold_wdt    
+000109ea  __TI_decompress_lzss                       
+00010a60  I2C_load_TX_DATA                           
+00010ac8  __mspabi_fixfi                             
+00010b30  SCD_init                                   
+00010b90  __mspabi_fixful                            
+00010bdc  I2C_load_RX_DATA                           
+00010c26  __mspabi_cmpf                              
+00010c70  I2C_update_peak_time                       
+00010cb8  __mspabi_fixfu                             
+00010cfe  __mspabi_sral_15                           
+00010d02  __mspabi_sral_14                           
+00010d06  __mspabi_sral_13                           
+00010d0a  __mspabi_sral_12                           
+00010d0e  __mspabi_sral_11                           
+00010d12  __mspabi_sral_10                           
+00010d16  __mspabi_sral_9                            
+00010d1a  __mspabi_sral_8                            
+00010d1e  __mspabi_sral_7                            
+00010d22  __mspabi_sral_6                            
+00010d26  __mspabi_sral_5                            
+00010d2a  __mspabi_sral_4                            
+00010d2e  __mspabi_sral_3                            
+00010d32  __mspabi_sral_2                            
+00010d36  __mspabi_sral_1                            
+00010d3c  __mspabi_slll_15                           
+00010d40  __mspabi_slll_14                           
+00010d44  __mspabi_slll_13                           
+00010d48  __mspabi_slll_12                           
+00010d4c  __mspabi_slll_11                           
+00010d50  __mspabi_slll_10                           
+00010d54  __mspabi_slll_9                            
+00010d58  __mspabi_slll_8                            
+00010d5c  __mspabi_slll_7                            
+00010d60  __mspabi_slll_6                            
+00010d64  __mspabi_slll_5                            
+00010d68  __mspabi_slll_4                            
+00010d6c  __mspabi_slll_3                            
+00010d70  __mspabi_slll_2                            
+00010d74  __mspabi_slll_1                            
+00010d7a  memcpy                                     
+00010db6  timer_A_init                               
+00010dee  __mspabi_fltulf                            
+00010e20  __mpu_init                                 
+00010e4c  Sensirion_checksum_calculation             
+00010e72  Sensirion_toggle_automatic_self_calibration
+00010e96  __TI_zero_init_nomemset                    
+00010eba  __mspabi_fltuf                             
+00010ede  Sensirion_set_temperature_offset           
+00010efa  Sensirion_trigger_continuous_measurement   
+00010f16  Sensirion_set_altitude_compensation        
+00010f2e  UCB1_I2C_init_master                       
+00010f46  __mspabi_mpyi_f5hw                         
+00010f5e  __TI_decompress_none                       
+00010f74  Sensirion_read_measurement_RX              
+00010f86  __mspabi_sral                              
+00010f96  wait_ms                                    
+00010fa4  Sensirion_read_measurement_TX              
+00010fb0  __mspabi_negf                              
+00010fba  C$$EXIT                                    
+00010fba  abort                                      
+00010fc0  _system_pre_init                           
+00010fc4  _system_post_cinit                         
 ffffffff  __TI_pprof_out_hndl                        
 ffffffff  __TI_prof_data_size                        
 ffffffff  __TI_prof_data_start                       
 ffffffff  __c_args__                                 
 
-[1699 symbols]
+[1722 symbols]

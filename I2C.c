@@ -11,7 +11,7 @@
 #include "I2C.h"
 #include "init_var.h"
 #include "main.h"   // would  not build with main.h  I2C_Status was not found
-
+#include "timer.h"
 #include <math.h>
 
 #include <stdbool.h>
@@ -34,7 +34,7 @@
 // TX and RX Buffers:
 uint8_t I2C_TX_DATA[I2C_Transmit_Buffer_Size]; // Data transmitted
 uint8_t I2C_RX_DATA[I2C_Receive_Buffer_Size];  // Data received
-
+uint16_t I2C_TRANSACTION_HOLDER [24]; //time Data received
 // Read Buffer:
  volatile struct I2C_RX_Meas_t I2C_RX_READINGS[I2C_Readings_Buffer_Size]; // Data received after cleaning,
                                                                                 // held in a struct.
@@ -324,10 +324,18 @@ volatile uint16_t I2C_REDUX_COUNT = 1;
  void add_to_RX_READINGS()
 {
     uint8_t i = 0;
+
+
+
+
+
+
     if (I2C_RX_READINGS_INDEX < I2C_Readings_Buffer_Size)
     {
         // Add to log of readings
+      //  I2C_TRANSACTION_HOLDER[I2C_RX_READINGS_INDEX] = DPB_SECOND_COUNTER;
         I2C_RX_READINGS[I2C_RX_READINGS_INDEX++] = *measurement_ptr;
+
     }
     else
     {
@@ -335,9 +343,22 @@ volatile uint16_t I2C_REDUX_COUNT = 1;
         {
             // Shift readings over, remove oldest
             I2C_RX_READINGS[i] = I2C_RX_READINGS[i + 1];
+          //  I2C_TRANSACTION_HOLDER[i] = I2C_TRANSACTION_HOLDER[i+1];
         }
         // Add newest to "end" of log
+       // I2C_TRANSACTION_HOLDER[I2C_Readings_Buffer_Size - 1] = DPB_SECOND_COUNTER;
         I2C_RX_READINGS[I2C_Readings_Buffer_Size - 1] = *measurement_ptr;
+
+        if ((I2C_RX_READINGS[I2C_Readings_Buffer_Size - 1].CO2 > max_CO2) && (I2C_RX_READINGS[I2C_Readings_Buffer_Size - 1].CO2 < 5000))
+         {
+             max_CO2 = I2C_RX_READINGS[I2C_Readings_Buffer_Size - 1].CO2;
+         }
+         else if ((I2C_RX_READINGS[I2C_Readings_Buffer_Size - 1].CO2 < min_CO2) && (I2C_RX_READINGS[I2C_Readings_Buffer_Size - 1].CO2 > 0))
+         {
+             min_CO2 = I2C_RX_READINGS[I2C_Readings_Buffer_Size - 1].CO2;
+         }
+
+
     }
 }
 
@@ -458,14 +479,14 @@ void I2C_avg_readings(uint32_t *CO2_avg, uint16_t *T_avg, uint16_t *RH_avg)
 
     // Set maximum and minimum values if conditions met. Max/min are set for averaged buffer values,
     // not for individual readings.
-    if (*CO2_avg > max_CO2)
-    {
-        max_CO2 = *CO2_avg;
-    }
-    else if ((*CO2_avg < min_CO2) && (*CO2_avg > 0))
-    {
-        min_CO2 = *CO2_avg;
-    }
+//    if (*CO2_avg > max_CO2)
+//    {
+//        max_CO2 = *CO2_avg;
+//    }
+//    else if ((*CO2_avg < min_CO2) && (*CO2_avg > 0))
+//    {
+//        min_CO2 = *CO2_avg;
+//    }
 
     if (*T_avg > max_T)
     {
@@ -691,7 +712,7 @@ void Sensirion_get_measurement_interval_RX(volatile  uint16_t *interval)
 
     // SET_RX;
     // Should be 2 bytes interval plus CRC
-    I2C_load_RX_DATA(3);
+    I2C_load_RX_DATA(3);  // get measurement interval
 }
 
 void Sensirion_get_data_ready_status_TX()
@@ -713,7 +734,7 @@ void Sensirion_get_data_ready_status_RX(volatile uint16_t *ready)
     I2C_RX_argument_ptr = ready;
     // SET_RX;
     // Should be 2 bytes ready plus CRC
-    I2C_load_RX_DATA(3);
+    I2C_load_RX_DATA(3);  // get data ready status
 }
 
 void Sensirion_read_measurement_TX()
@@ -735,7 +756,7 @@ void Sensirion_read_measurement_RX(struct I2C_RX_Meas_t *meas)
     SET_READ;
     measurement_ptr = meas;
     // Populate buffer, sending 15 bytes CO2/T/RH plus 3 bytes CRCs
-    I2C_load_RX_DATA(18);
+    I2C_load_RX_DATA(18);  // read scd co2,t,rh
 }
 
 
@@ -777,7 +798,7 @@ void Sensirion_get_automatic_self_calibration_status_RX(volatile uint16_t *ASC)
 
     // SET_RX;
     // Should be 2 bytes ASC status plus CRC
-    I2C_load_RX_DATA(3);
+    I2C_load_RX_DATA(3);  // check self calibration status
 }
 
 
@@ -820,7 +841,7 @@ void Sensirion_get_forced_recalibration_value_RX(volatile uint16_t *FRC)
 
     // SET_RX;
     // Should be 2 bytes FRC plus CRC
-    I2C_load_RX_DATA(3);
+    I2C_load_RX_DATA(3);  // get force recal value
 }
 
 void Sensirion_set_temperature_offset(volatile uint16_t argument)
@@ -852,7 +873,7 @@ void Sensirion_get_temperature_offset_RX(volatile uint16_t *offset)
 
     // SET_RX;
     // Should be 2 bytes offset plus CRC
-    I2C_load_RX_DATA(3);
+    I2C_load_RX_DATA(3);  // ger temperature offset value
 }
 
 void Sensirion_set_altitude_compensation(volatile uint16_t argument)
@@ -886,7 +907,7 @@ void Sensirion_get_altitude_compensation_RX(volatile uint16_t *compensation)
 
     // SET_RX;
     // Should be 2 bytes compensation plus CRC
-    I2C_load_RX_DATA(3);
+    I2C_load_RX_DATA(3);  // get altitude comp value
 }
 
 void Sensirion_read_firmware_version_TX()
@@ -909,7 +930,7 @@ void Sensirion_read_firmware_version_RX(volatile uint16_t *version)
 
     // SET_RX;
     // Should be 2 bytes version plus CRC
-    I2C_load_RX_DATA(3);
+    I2C_load_RX_DATA(3);  // get firmware version
 }
 
 

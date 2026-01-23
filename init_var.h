@@ -113,13 +113,13 @@ command to set altitude in meters above sea level. */
 #define USCI_Bx_VECTOR (USCI_B1_VECTOR)
 
 // Peak Times:
-#define IS_TX (I2C_MODE_BYTE == 1)
-#define IS_RX (I2C_MODE_BYTE == 2)
-#define IS_READ (I2C_MODE_BYTE == 3)
+#define IS_TX (I2C_MODE_BYTE == 1)  // used for deciding which peak time to update
+#define IS_RX (I2C_MODE_BYTE == 2)  /// used to indicate update peak times for command read
+#define IS_READ (I2C_MODE_BYTE == 3)  // used to indicate update peak time for data read and how to parse i2c_par_rx_data (command or data)
 #define CLR_I2C_MODE_BYTE (I2C_MODE_BYTE = 0) //0 is not transmitting.
-#define SET_TX (I2C_MODE_BYTE = 1)
-#define SET_RX (I2C_MODE_BYTE = 2)
-#define SET_READ (I2C_MODE_BYTE = 3)
+#define SET_TX (I2C_MODE_BYTE = 1)  // used in I2C_load_TX_DATA
+#define SET_RX (I2C_MODE_BYTE = 2)  // set before going into I2C_load_RX_DATA - used for multiple command reads
+#define SET_READ (I2C_MODE_BYTE = 3)  // set before going into I2C_load_RX_DATA - used for only data read
 #define START_I2C_STOPWATCH (TRACK_I2C_TIME = true)
 #define STOP_I2C_STOPWATCH (TRACK_I2C_TIME = false)
 #define CLR_I2C_STOPWATCH (I2C_TIME = 0)

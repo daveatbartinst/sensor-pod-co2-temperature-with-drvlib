@@ -62,7 +62,7 @@ extern volatile uint8_t max_RH, min_RH;
 // Counts the number of bad reads:
 extern volatile uint16_t I2C_REDUX_COUNT;
 
-
+extern uint16_t I2C_TRANSACTION_HOLDER [24]; //time Data received
 extern uint8_t SCD_STATUS ;
 
 /********************************************************************************************

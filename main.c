@@ -89,6 +89,36 @@ uint16_t SCD30_ALTITUDE =0;
 
 // added by dpb
 uint8_t SCD_STATUS =0;
+
+
+// From Nate's code, these were local variables inside main() and moved here as global variables
+// clears space from stack and ensures if main() goes out of focus the variables are not lost
+
+struct I2C_RX_Meas_t READING;
+     // Keep these variables at this size. Minimal excess space but enough for maximal values.
+uint32_t CO2_avg = 0;
+uint16_t T_avg = 0;
+uint16_t RH_avg = 0;
+uint8_t NUM_READS = 0;
+uint16_t data_ready = 0;
+
+     // Note: The below can be used for logging.
+uint16_t peak_tx = 0, peak_rx = 0, peak_read = 0, peak_UART_TX = 0, peak_UART_RX = 0;
+uint16_t peak_CO2 = 0, trough_CO2 = 0;
+uint8_t peak_RH = 0, trough_RH = 0;
+uint8_t peak_T = 0, trough_T = 0;
+
+
+
+
+
+
+
+
+
+
+
+
 ////    //BIT 7 SET IS SCD_INIT IN PROGRESS.  EITHER FROM POWER UP OR ALTITUDE SWITCH CHANGED
 ////      BIT 1 INDICATES IT IS TIME TO READ AND PARSE SCD DATA
 ////      bit 0 set is use SCD_defaults.  used in SCD_init
@@ -176,6 +206,8 @@ void SCD_init(uint8_t ambient_pressure,
      Clr_Scd_Init_In_Progress;   //if altitude switch is changed, SCD_INIT is triggered.  this clear the flag when init is done dpb
      SCD_SECOND = 0; // start timer to read after 8 seconds
  }
+
+
 
 
 void handle_UART_CMD()
@@ -379,19 +411,19 @@ void main(void)
 
 uint8_t quarter_second_count = 0;
 
-struct I2C_RX_Meas_t reading;
-     // Keep these variables at this size. Minimal excess space but enough for maximal values.
-uint32_t CO2_avg = 0;
-uint16_t T_avg = 0;
-uint16_t RH_avg = 0;
-uint8_t num_reads = 0;
-uint16_t data_ready = 0;
-
-     // Note: The below can be used for logging.
-volatile uint16_t peak_tx = 0, peak_rx = 0, peak_read = 0, peak_UART_TX = 0, peak_UART_RX = 0;
-volatile uint16_t peak_CO2 = 0, trough_CO2 = 0;
-volatile uint8_t peak_RH = 0, trough_RH = 0;
-volatile uint8_t peak_T = 0, trough_T = 0;
+//struct I2C_RX_Meas_t reading;
+//     // Keep these variables at this size. Minimal excess space but enough for maximal values.
+//uint32_t CO2_avg = 0;
+//uint16_t T_avg = 0;
+//uint16_t RH_avg = 0;
+//uint8_t num_reads = 0;
+//uint16_t data_ready = 0;
+//
+//     // Note: The below can be used for logging.
+//volatile uint16_t peak_tx = 0, peak_rx = 0, peak_read = 0, peak_UART_TX = 0, peak_UART_RX = 0;
+//volatile uint16_t peak_CO2 = 0, trough_CO2 = 0;
+//volatile uint8_t peak_RH = 0, trough_RH = 0;
+//volatile uint8_t peak_T = 0, trough_T = 0;
 
       WDTCTL = WDTPW | WDTHOLD;   // stop watchdog timer
       init_hardware();  // INIT ALL - CLOCK SOURCE GPIO, SERIAL PORTS, A2D
@@ -404,15 +436,20 @@ volatile uint8_t peak_T = 0, trough_T = 0;
 
      Set_Scd_Init_In_Progress;  //if power up or altitude switch is changed, SCD_INIT is triggered.  this clear the flag when init is done dpb
      Set_Scd_Use_defaults;
-     //  setting the init bit will cause this to run in while(1)
-//     SCD_init(PRODUCTION_AMBIENT_PRESSURE_MBAR_DEFAULT,
-//                   PRODUCTION_AUTOMATIC_SELF_CALIBRATION_DEFAULT,
-//                   (uint8_t)200,
-//                   PRODUCTION_ALTITUDE_COMPENSATION_DEFAULT,
-//                   (uint8_t)1272);
+     SCD_init(PRODUCTION_AMBIENT_PRESSURE_MBAR_DEFAULT,
+                                PRODUCTION_AUTOMATIC_SELF_CALIBRATION_DEFAULT,
+                                (uint8_t)200,
+                                PRODUCTION_ALTITUDE_COMPENSATION_DEFAULT,
+                                (uint8_t)1272);  // this takes several seconds so other functions are stopped
+     while( SCD_SECOND < 2) {
+         //Wait until scd first read is done
+     }
+     SCD_SECOND = 0; // THIS WILL SYNC SO WE CAN USE DATA ON ODD SCD_SECOND
+
+
 
  while (1){
-        if (!Scd_Init_In_Progress){
+      //  if (!Scd_Init_In_Progress){
 
              // Every 50 ms
           if (New_50_ms){
@@ -491,7 +528,7 @@ volatile uint8_t peak_T = 0, trough_T = 0;
                      // Wait 250 ms
                      break;
                  case 1: // If sent read_TX, send read_RX
-                     Sensirion_read_measurement_RX(&reading); // read data
+                     Sensirion_read_measurement_RX(&READING); // read data
                      data_ready_timing_byte++;
                      // Wait 250 ms
                      break;
@@ -501,11 +538,11 @@ volatile uint8_t peak_T = 0, trough_T = 0;
                      break;
                  case 3: //Analyze reading, update state.
                      I2C_parse_RX_DATA();
-                     num_reads++;
+                     NUM_READS++;
                      // Prevent from num_reads overflow.
-                     if (num_reads > 200)
+                     if (NUM_READS > 200)
                      {
-                         num_reads = 10;
+                         NUM_READS = 10;
                      }
                      // Reset back to start.
                      data_ready_timing_byte = 0;
@@ -524,20 +561,24 @@ volatile uint8_t peak_T = 0, trough_T = 0;
                  Clr_New_Second;
                //  SCD30_ALTITUDE = ((~P3IN & 0x0f)*305); // ALTITUDE IN METERS
 // 1 second state machine.  0 = scd_init, 7 is stop readings, 8 is read scd data, 9 parse
-                  if(SCD_SECOND == 0){
-                      // read thermistor
+                  if(SCD_SECOND & 0x01){ // when odd use data.  readings are taken on even seconds
+                      Set_Scd_Read_Parse;        // allow 2 sec to parse
+                      LED_1_On;
                   }
-                  else if(SCD_SECOND == 7 ){// stop scd readings
-                      Sensirion_stop_continuous_measurement();
+                  else{
+                  LED_1_Off;
                   }
-                  else if(SCD_SECOND == 8 ){
-                        Set_Scd_Read_Parse;        // allow 2 sec to parse
-                  }
-                  else if(SCD_SECOND == 10 ){ // scd_second gets clr in hafmil and at end of scd_init
-                     Set_Scd_Init_In_Progress;    // allows scd_init to run
-                     Clr_Scd_Read_Parse;   //gets set after 6 seconds of scd readings
-                  }
-                 LED_1_Toggle;
+//                  else if(SCD_SECOND == 7 ){// stop scd readings
+//                      Sensirion_stop_continuous_measurement();
+//                  }
+//                  else if(SCD_SECOND == 8 ){
+//                        Set_Scd_Read_Parse;        // allow 2 sec to parse
+//                  }
+//                  else if(SCD_SECOND == 10 ){ // scd_second gets clr in hafmil and at end of scd_init
+//                    // Set_Scd_Init_In_Progress;    // allows scd_init to run
+//                     Clr_Scd_Read_Parse;   //gets set after 6 seconds of scd readings
+//                  }
+
              }  // end new second
 
                  // Every 10 seconds
@@ -545,17 +586,17 @@ volatile uint8_t peak_T = 0, trough_T = 0;
                  {
                      Clr_New_Ten_Second;
                      // Allow read buffer to populate fully, else send 0s.
-        //             if (num_reads > I2C_Readings_Buffer_Size)
-        //             {
-        //                 // Update averages before sending.
-        //                 I2C_avg_readings(&CO2_avg, &T_avg, &RH_avg);
-        //
-        //                 CO2_MSB = (uint8_t)(CO2_avg >> One_Byte);
-        //                 CO2_LSB = (uint8_t)CO2_avg;
-        //                 TEMPERATURE = (uint8_t)T_avg;
-        //                 HUMIDITY = (uint8_t)RH_avg;
-        //                 UART_populate_TX_READ_buffer();
-        //             }
+                     if (NUM_READS > I2C_Readings_Buffer_Size)
+                     {
+                         // Update averages before sending.
+                         I2C_avg_readings(&CO2_avg, &T_avg, &RH_avg);
+
+                         CO2_MSB = (uint8_t)(CO2_avg >> One_Byte);
+                         CO2_LSB = (uint8_t)CO2_avg;
+                         TEMPERATURE = (uint8_t)T_avg;
+                         HUMIDITY = (uint8_t)RH_avg;
+                        // UART_populate_TX_READ_buffer();
+                     }
 
         //             //TODO: Peak values are for debugging only.
         //             peak_tx = I2C_PEAK_TX_TIME;
@@ -587,15 +628,22 @@ volatile uint8_t peak_T = 0, trough_T = 0;
                  // Every Hour
                  if (New_Hour){
                      Clr_New_Hour;
+
+                     I2C_TRANSACTION_HOLDER [HOUR_COUNTER] = (max_CO2-min_CO2);
+                     max_CO2 =0;  // clear min/max every hour
+                     min_CO2 = 0xffff;
+
+
+
              } // End new hour
-           } //end if (!Scd_Init_In_Progress)
-      else{// do scd30 init every 10 seconds
-          SCD_init(PRODUCTION_AMBIENT_PRESSURE_MBAR_DEFAULT,
-                             PRODUCTION_AUTOMATIC_SELF_CALIBRATION_DEFAULT,
-                             (uint8_t)200,
-                             PRODUCTION_ALTITUDE_COMPENSATION_DEFAULT,
-                             (uint8_t)1272);  // this takes several seconds so other functions are stopped
-     }
+        //   } //end if (!Scd_Init_In_Progress)
+//      else{// do scd30 init every 10 seconds
+//          SCD_init(PRODUCTION_AMBIENT_PRESSURE_MBAR_DEFAULT,
+//                             PRODUCTION_AUTOMATIC_SELF_CALIBRATION_DEFAULT,
+//                             (uint8_t)200,
+//                             PRODUCTION_ALTITUDE_COMPENSATION_DEFAULT,
+//                             (uint8_t)1272);  // this takes several seconds so other functions are stopped
+//     }
 
  }  // end while(1)
 }

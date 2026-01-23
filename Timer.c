@@ -31,6 +31,7 @@ volatile uint16_t SECOND_COUNTER = 0;
 volatile uint16_t TEN_SECOND_COUNTER = 0;
 volatile uint16_t MINUTE_COUNTER = 0;
 volatile uint16_t HOUR_COUNTER = 0;
+uint16_t DPB_SECOND_COUNTER = 0;
 
 /********************************************************************************************
  *                          SENSIRION SCD30 TIMER FUNCTIONS: *
@@ -101,9 +102,10 @@ __interrupt void half_mil(void)
     {
         Set_New_Second;
         SECOND_COUNTER++;
+        DPB_SECOND_COUNTER++;
         FIFTY_MS_COUNTER = 0;
         SCD_SECOND++; // USED TO TIME SCD READING SEQUENCE IN MAIN, RESET AFTER 10 SECONDS
-        if(SCD_SECOND > 11){
+        if(SCD_SECOND > 9){
             SCD_SECOND = 0;
         }
     }
@@ -121,6 +123,7 @@ __interrupt void half_mil(void)
     }
     if (MINUTE_COUNTER > 59)
     {
+        DPB_SECOND_COUNTER = 0;  // USED FOR TESTING TO GIVE A SECOND COUNT UP TO 3600
         Set_New_Hour;
         HOUR_COUNTER++;
         MINUTE_COUNTER = 0;

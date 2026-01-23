@@ -28,7 +28,7 @@ extern volatile uint16_t FIFTY_MS_COUNTER;
 extern volatile uint16_t FIVE_SECOND_COUNTER;
 extern volatile uint16_t MINUTE_COUNTER;
 extern volatile uint16_t HOUR_COUNTER;
-
+extern uint16_t DPB_SECOND_COUNTER ;
 /**
  * @brief Initialize all timer-related settings. Uses Timer A and SMCLOCK.
  */
